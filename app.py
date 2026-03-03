@@ -4,7 +4,8 @@ from game import engine
 from game.data import common
 
 app = Flask(__name__)
-app.secret_key = "stcc-dev-secret-change-in-production"
+import os
+app.secret_key = os.environ.get("SECRET_KEY", "stcc-dev-secret-change-in-production")
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
