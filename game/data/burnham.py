@@ -24,6 +24,40 @@ CAPTAIN_INFO = {
     ),
 }
 
+# Each entry is a list of {"at": N, "multiplier": M} steps in ascending order.
+# The active multiplier is the highest step whose "at" value ≤ current track value.
+SPECIALTY_THRESHOLDS = {
+    "research": [
+        {"at": 0,  "multiplier": 1},
+        {"at": 2,  "multiplier": 2},
+        {"at": 7,  "multiplier": 3},
+        {"at": 10, "multiplier": 4},
+        {"at": 13, "multiplier": 5},
+        {"at": 15, "multiplier": 6},
+    ],
+    "influence": [
+        {"at": 0,  "multiplier": 1},
+        {"at": 2,  "multiplier": 2},
+        {"at": 7,  "multiplier": 3},
+        {"at": 10, "multiplier": 4},
+        {"at": 13, "multiplier": 5},
+        {"at": 15, "multiplier": 6},
+    ],
+    "military": [
+        {"at": 0,  "multiplier": 1},
+        {"at": 5,  "multiplier": 3},
+        {"at": 10, "multiplier": 4},
+        {"at": 14, "multiplier": 5},
+    ],
+}
+
+# Specialty track thresholds — fill in actual values from rulebook.
+SPECIALTY_THRESHOLDS = {
+    "research":  [],
+    "influence": [],
+    "military":  [],
+}
+
 TRAITS = {
     "SURPRISE": {
         "label": "Surprise",
@@ -239,40 +273,40 @@ WITH_DUTY_OFFICER = {
 # Deck cards (23): CARGO×2, DIRECTIVE×4, LOCATION×3, PERSON×11, SHIP×3
 # Also: Captain (set aside), Status×1 (set aside), Incident×1 (incident pile)
 CARDS = [
-    {"id": "burnham_captain",      "name": "Burnham",                "card_type": "CAPTAIN",  "traits": [], "starting_location": "captain"},
-    {"id": "burnham_status_01",    "name": "[Status Card]",          "card_type": "OTHER",    "traits": [], "starting_location": "status"},
-    {"id": "burnham_incident_01",  "name": "[Incident Deck Card]",   "card_type": "INCIDENT", "traits": [], "starting_location": "incident_deck"},
+    {"id": "burnham_captain",      "name": "Burnham",                "card_type": "CAPTAIN",  "traits": [], "points": 0, "starting_location": "captain"},
+    {"id": "burnham_status_01",    "name": "[Status Card]",          "card_type": "OTHER",    "traits": [], "points": 0, "starting_location": "status"},
+    {"id": "burnham_incident_01",  "name": "[Incident Deck Card]",   "card_type": "INCIDENT", "traits": [], "points": 0, "starting_location": "incident_deck"},
 
     # Available ×10
-    {"id": "burnham_person_01",    "name": "[Person 1]",             "card_type": "PERSON",   "traits": [], "starting_location": "available"},
-    {"id": "burnham_person_02",    "name": "[Person 2]",             "card_type": "PERSON",   "traits": [], "starting_location": "available"},
-    {"id": "burnham_person_03",    "name": "[Person 3]",             "card_type": "PERSON",   "traits": [], "starting_location": "available"},
-    {"id": "burnham_person_04",    "name": "[Person 4]",             "card_type": "PERSON",   "traits": [], "starting_location": "available"},
-    {"id": "burnham_directive_01", "name": "[Directive 1]",          "card_type": "DIRECTIVE","traits": [], "starting_location": "available"},
-    {"id": "burnham_directive_02", "name": "[Directive 2]",          "card_type": "DIRECTIVE","traits": [], "starting_location": "available"},
-    {"id": "burnham_cargo_01",     "name": "[Cargo 1]",              "card_type": "CARGO",    "traits": [], "starting_location": "available"},
-    {"id": "burnham_ship_01",      "name": "[Ship 1]",               "card_type": "SHIP",     "traits": [], "starting_location": "available"},
-    {"id": "burnham_ship_02",      "name": "[Ship 2]",               "card_type": "SHIP",     "traits": [], "starting_location": "available"},
-    {"id": "burnham_location_01",  "name": "[Location 1]",          "card_type": "LOCATION", "traits": [], "starting_location": "available"},
+    {"id": "burnham_person_01",    "name": "[Person 1]",             "card_type": "PERSON",   "traits": [], "points": 0, "starting_location": "available"},
+    {"id": "burnham_person_02",    "name": "[Person 2]",             "card_type": "PERSON",   "traits": [], "points": 0, "starting_location": "available"},
+    {"id": "burnham_person_03",    "name": "[Person 3]",             "card_type": "PERSON",   "traits": [], "points": 0, "starting_location": "available"},
+    {"id": "burnham_person_04",    "name": "[Person 4]",             "card_type": "PERSON",   "traits": [], "points": 0, "starting_location": "available"},
+    {"id": "burnham_directive_01", "name": "[Directive 1]",          "card_type": "DIRECTIVE","traits": [], "points": 0, "starting_location": "available"},
+    {"id": "burnham_directive_02", "name": "[Directive 2]",          "card_type": "DIRECTIVE","traits": [], "points": 0, "starting_location": "available"},
+    {"id": "burnham_cargo_01",     "name": "[Cargo 1]",              "card_type": "CARGO",    "traits": [], "points": 0, "starting_location": "available"},
+    {"id": "burnham_ship_01",      "name": "[Ship 1]",               "card_type": "SHIP",     "traits": [], "points": 0, "starting_location": "available"},
+    {"id": "burnham_ship_02",      "name": "[Ship 2]",               "card_type": "SHIP",     "traits": [], "points": 0, "starting_location": "available"},
+    {"id": "burnham_location_01",  "name": "[Location 1]",          "card_type": "LOCATION", "traits": [], "points": 0, "starting_location": "available"},
 
     # Deployed ×1
-    {"id": "burnham_ship_03",      "name": "[Ship 3 — Deployed]",   "card_type": "SHIP",     "traits": [], "starting_location": "deployed"},
+    {"id": "burnham_ship_03",      "name": "[Ship 3 — Deployed]",   "card_type": "SHIP",     "traits": [], "points": 0, "starting_location": "deployed"},
 
     # Reserve ×4
-    {"id": "burnham_person_05",    "name": "[Person 5]",             "card_type": "PERSON",   "traits": [], "starting_location": "reserve"},
-    {"id": "burnham_person_06",    "name": "[Person 6]",             "card_type": "PERSON",   "traits": [], "starting_location": "reserve"},
-    {"id": "burnham_person_07",    "name": "[Person 7]",             "card_type": "PERSON",   "traits": [], "starting_location": "reserve"},
-    {"id": "burnham_location_02",  "name": "[Location 2]",          "card_type": "LOCATION", "traits": [], "starting_location": "reserve"},
+    {"id": "burnham_person_05",    "name": "[Person 5]",             "card_type": "PERSON",   "traits": [], "points": 0, "starting_location": "reserve"},
+    {"id": "burnham_person_06",    "name": "[Person 6]",             "card_type": "PERSON",   "traits": [], "points": 0, "starting_location": "reserve"},
+    {"id": "burnham_person_07",    "name": "[Person 7]",             "card_type": "PERSON",   "traits": [], "points": 0, "starting_location": "reserve"},
+    {"id": "burnham_location_02",  "name": "[Location 2]",          "card_type": "LOCATION", "traits": [], "points": 0, "starting_location": "reserve"},
 
     # Development ×8
-    {"id": "burnham_person_08",    "name": "[Person 8]",             "card_type": "PERSON",   "traits": [], "starting_location": "development"},
-    {"id": "burnham_person_09",    "name": "[Person 9]",             "card_type": "PERSON",   "traits": [], "starting_location": "development"},
-    {"id": "burnham_person_10",    "name": "[Person 10]",            "card_type": "PERSON",   "traits": [], "starting_location": "development"},
-    {"id": "burnham_person_11",    "name": "[Person 11]",            "card_type": "PERSON",   "traits": [], "starting_location": "development"},
-    {"id": "burnham_directive_03", "name": "[Directive 3]",          "card_type": "DIRECTIVE","traits": [], "starting_location": "development"},
-    {"id": "burnham_directive_04", "name": "[Directive 4]",          "card_type": "DIRECTIVE","traits": [], "starting_location": "development"},
-    {"id": "burnham_location_03",  "name": "[Location 3]",          "card_type": "LOCATION", "traits": [], "starting_location": "development"},
-    {"id": "burnham_cargo_02",     "name": "[Cargo 2]",              "card_type": "CARGO",    "traits": [], "starting_location": "development"},
+    {"id": "burnham_person_08",    "name": "[Person 8]",             "card_type": "PERSON",   "traits": [], "points": 0, "starting_location": "development"},
+    {"id": "burnham_person_09",    "name": "[Person 9]",             "card_type": "PERSON",   "traits": [], "points": 0, "starting_location": "development"},
+    {"id": "burnham_person_10",    "name": "[Person 10]",            "card_type": "PERSON",   "traits": [], "points": 0, "starting_location": "development"},
+    {"id": "burnham_person_11",    "name": "[Person 11]",            "card_type": "PERSON",   "traits": [], "points": 0, "starting_location": "development"},
+    {"id": "burnham_directive_03", "name": "[Directive 3]",          "card_type": "DIRECTIVE","traits": [], "points": 0, "starting_location": "development"},
+    {"id": "burnham_directive_04", "name": "[Directive 4]",          "card_type": "DIRECTIVE","traits": [], "points": 0, "starting_location": "development"},
+    {"id": "burnham_location_03",  "name": "[Location 3]",          "card_type": "LOCATION", "traits": [], "points": 0, "starting_location": "development"},
+    {"id": "burnham_cargo_02",     "name": "[Cargo 2]",              "card_type": "CARGO",    "traits": [], "points": 0, "starting_location": "development"},
 ]
 
 BY_ID = {c["id"]: c for c in CARDS}

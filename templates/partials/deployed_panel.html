@@ -1,0 +1,24 @@
+<!-- Deployed cards and warped ships panel -->
+{% from "partials/card_move_menu.html" import render as card_move_menu %}
+{% if deployed_display.deployed or deployed_display.warped %}
+
+  {% for card in deployed_display.deployed %}
+  <div class="deployed-row">
+    <span class="type-badge type-{{ card.card_type | lower }}">{{ card.card_type }}</span>
+    <span class="deployed-name">{{ card.name }}</span>
+    {{ card_move_menu(card.id) }}
+  </div>
+  {% endfor %}
+
+  {% for card, location in deployed_display.warped %}
+  <div class="deployed-row">
+    <span class="type-badge type-{{ card.card_type | lower }}">{{ card.card_type }}</span>
+    <span class="deployed-name">{{ card.name }}</span>
+    <span class="warp-location">{% if location == "neutral" %}⬡ Neutral{% else %}★ Controlled{% endif %}</span>
+    {{ card_move_menu(card.id) }}
+  </div>
+  {% endfor %}
+
+{% else %}
+<div class="do-empty">Nothing deployed or warped.</div>
+{% endif %}

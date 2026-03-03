@@ -52,6 +52,8 @@ def game():
         captain_card=captain_card,
         do_card=do_card,
         turn_cards=[],
+        specialty_info=engine.get_specialty_info(state),
+        deployed_display=engine.get_deployed_display(state),
     )
 
 
@@ -78,6 +80,7 @@ def draw():
         state=state,
         stats=engine.deck_stats(state),
         captain_info=module.CAPTAIN_INFO,
+        all_types=list(common.BY_TYPE.keys()),
     )
 
 
@@ -199,7 +202,8 @@ def resource_update():
     delta = int(request.form.get("delta", 0))
     state = engine.update_resource(state, res, delta)
     _save(state)
-    return render_template("partials/resources.html", state=state)
+    return render_template("partials/resources.html", state=state,
+                           specialty_info=engine.get_specialty_info(state))
 
 
 # ── Gain card (common pool selector) ─────────────────────────────────────────
@@ -208,6 +212,7 @@ def resource_update():
 def gain_card_panel():
     """Returns the card-gain selector panel (HTMX GET)."""
     card_type = request.args.get("type", "")
+    action    = request.args.get("action", "gain")  # "gain" → discard, "take" → top of deck
     cards = common.BY_TYPE.get(card_type, []) if card_type else []
     all_types = list(common.BY_TYPE.keys())
     return render_template(
@@ -215,12 +220,13 @@ def gain_card_panel():
         card_type=card_type,
         cards=cards,
         all_types=all_types,
+        action=action,
     )
 
 
 @app.route("/game/gain-card", methods=["POST"])
 def gain_card_submit():
-    state  = _game()
+    state   = _game()
     card_id = request.form.get("card_id")
     if card_id:
         state = engine.gain_card(state, card_id)
@@ -231,6 +237,138 @@ def gain_card_submit():
         message=f"'{card['name'] if card else '?'}' added to Bot discard pile.",
         affected_cards=[card] if card else [],
         stats=engine.deck_stats(state),
+    )
+
+
+@app.route("/game/take-card", methods=["POST"])
+def take_card_submit():
+    state   = _game()
+    card_id = request.form.get("card_id")
+    if card_id:
+        state = engine.take_card(state, card_id)
+        _save(state)
+    card = engine.get_card(card_id) if card_id else None
+    return render_template(
+        "partials/op_result.html",
+        message=f"'{card['name'] if card else '?'}' placed on top of Bot draw deck.",
+        affected_cards=[card] if card else [],
+        stats=engine.deck_stats(state),
+    )
+
+
+# ── Send card to specific destination ────────────────────────────────────────
+
+@app.route("/game/send/top/<card_id>", methods=["POST"])
+def send_top(card_id):
+    state = _game()
+    state = engine.send_card_to_top(state, card_id)
+    _save(state)
+    card = engine.get_card(card_id)
+    return render_template(
+        "partials/op_result.html",
+        message=f"'{card['name'] if card else card_id}' placed on top of draw deck.",
+        affected_cards=[],
+        stats=engine.deck_stats(state),
+        deployed_display=engine.get_deployed_display(state),
+    )
+
+
+@app.route("/game/send/discard/<card_id>", methods=["POST"])
+def send_discard(card_id):
+    state = _game()
+    state = engine.send_card_to_discard(state, card_id)
+    _save(state)
+    card = engine.get_card(card_id)
+    return render_template(
+        "partials/op_result.html",
+        message=f"'{card['name'] if card else card_id}' sent to discard pile.",
+        affected_cards=[],
+        stats=engine.deck_stats(state),
+        deployed_display=engine.get_deployed_display(state),
+    )
+
+
+# ── End turn ──────────────────────────────────────────────────────────────────
+
+@app.route("/game/end-turn", methods=["POST"])
+def end_turn():
+    state = _game()
+    discarded, state = engine.discard_drawn_cards(state)
+    _save(state)
+    cards = [engine.get_card(cid) for cid in discarded]
+    n = len(discarded)
+    return render_template(
+        "partials/op_result.html",
+        message=f"Turn ended — {n} card{'s' if n != 1 else ''} sent to discard.",
+        affected_cards=cards,
+        stats=engine.deck_stats(state),
+        clear_draw_result=True,
+    )
+
+
+# ── Pile inspector ────────────────────────────────────────────────────────────
+
+@app.route("/game/pile/<pile_name>")
+def view_pile(pile_name):
+    state = _game()
+    piles = {
+        "discard": state["discard_pile"],
+        "log":     state["log_pile"],
+    }
+    if pile_name not in piles:
+        return "", 404
+    card_ids = list(reversed(piles[pile_name]))
+    cards = [engine.get_card(cid) for cid in card_ids]
+    return render_template("partials/pile_view.html", pile_name=pile_name, cards=cards)
+
+
+# ── Deploy / warp / recall ────────────────────────────────────────────────────
+
+@app.route("/game/deploy/<card_id>", methods=["POST"])
+def deploy_card(card_id):
+    state = _game()
+    state = engine.deploy_card(state, card_id)
+    _save(state)
+    card = engine.get_card(card_id)
+    return render_template(
+        "partials/op_result.html",
+        message=f"'{card['name'] if card else card_id}' deployed.",
+        affected_cards=[],
+        stats=engine.deck_stats(state),
+        deployed_display=engine.get_deployed_display(state),
+    )
+
+
+@app.route("/game/warp/<card_id>/<location>", methods=["POST"])
+def warp_ship(card_id, location):
+    if location not in ("neutral", "controlled"):
+        return "", 400
+    state = _game()
+    state = engine.warp_ship(state, card_id, location)
+    _save(state)
+    card = engine.get_card(card_id)
+    loc_label = "Neutral Planet" if location == "neutral" else "Controlled Planet"
+    return render_template(
+        "partials/op_result.html",
+        message=f"'{card['name'] if card else card_id}' warped to {loc_label}.",
+        affected_cards=[],
+        stats=engine.deck_stats(state),
+        deployed_display=engine.get_deployed_display(state),
+    )
+
+
+@app.route("/game/recall/<card_id>", methods=["POST"])
+def recall_card(card_id):
+    state = _game()
+    state = engine.recall_card(state, card_id)
+    _save(state)
+    card = engine.get_card(card_id)
+    return render_template(
+        "partials/op_result.html",
+        message=f"'{card['name'] if card else card_id}' recalled to discard.",
+        affected_cards=[],
+        stats=engine.deck_stats(state),
+        deployed_display=engine.get_deployed_display(state),
     )
 
 

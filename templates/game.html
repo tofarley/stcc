@@ -42,6 +42,14 @@
       {% endif %}
     </section>
 
+    <!-- Deployed & warped -->
+    <section class="panel" id="deployed-section">
+      <div class="panel-title">Deployed &amp; Warped</div>
+      <div id="deployed-panel">
+        {% include "partials/deployed_panel.html" %}
+      </div>
+    </section>
+
     <!-- Deck counters -->
     <section class="panel" id="deck-status">
       <div class="panel-title">Decks</div>
@@ -50,7 +58,11 @@
           <span class="deck-stat-label">Draw</span>
           <span class="deck-stat-count">{{ stats.draw }}</span>
         </div>
-        <div class="deck-stat">
+        <div class="deck-stat pile-btn"
+          hx-get="/game/pile/discard"
+          hx-target="#pile-inspector"
+          hx-swap="innerHTML"
+          hx-on::before-request="var a=this.classList.contains('pile-active'); document.querySelectorAll('.pile-btn').forEach(function(b){b.classList.remove('pile-active');}); if(a){event.preventDefault(); document.getElementById('pile-inspector').innerHTML='';}else{this.classList.add('pile-active');}">
           <span class="deck-stat-label">Discard</span>
           <span class="deck-stat-count">{{ stats.discard }}</span>
         </div>
@@ -58,12 +70,17 @@
           <span class="deck-stat-label">Reserve</span>
           <span class="deck-stat-count">{{ stats.reserve }}</span>
         </div>
-        <div class="deck-stat">
+        <div class="deck-stat pile-btn"
+          hx-get="/game/pile/log"
+          hx-target="#pile-inspector"
+          hx-swap="innerHTML"
+          hx-on::before-request="var a=this.classList.contains('pile-active'); document.querySelectorAll('.pile-btn').forEach(function(b){b.classList.remove('pile-active');}); if(a){event.preventDefault(); document.getElementById('pile-inspector').innerHTML='';}else{this.classList.add('pile-active');}">
           <span class="deck-stat-label">Log</span>
           <span class="deck-stat-count">{{ stats.log }}</span>
         </div>
       </div>
     </section>
+    <div id="pile-inspector"></div>
 
     <!-- Resources -->
     <section class="panel">

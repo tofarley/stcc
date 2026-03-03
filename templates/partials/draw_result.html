@@ -1,13 +1,17 @@
 <!-- Returned by POST /game/draw, swapped into #draw-result -->
+{% from "partials/card_move_menu.html" import render as card_move_menu %}
+
+<!-- Clear previous op feedback -->
+<div hx-swap-oob="innerHTML:#op-result"></div>
 
 <!-- Update deck stats in sidebar -->
 <div hx-swap-oob="innerHTML:#deck-status">
   <div class="panel-title">Decks</div>
   <div class="deck-stats">
     <div class="deck-stat"><span class="deck-stat-label">Draw</span><span class="deck-stat-count">{{ stats.draw }}</span></div>
-    <div class="deck-stat"><span class="deck-stat-label">Discard</span><span class="deck-stat-count">{{ stats.discard }}</span></div>
+    <div class="deck-stat pile-btn" hx-get="/game/pile/discard" hx-target="#pile-inspector" hx-swap="innerHTML" hx-on::before-request="var a=this.classList.contains('pile-active'); document.querySelectorAll('.pile-btn').forEach(function(b){b.classList.remove('pile-active');}); if(a){event.preventDefault(); document.getElementById('pile-inspector').innerHTML='';}else{this.classList.add('pile-active');}"><span class="deck-stat-label">Discard</span><span class="deck-stat-count">{{ stats.discard }}</span></div>
     <div class="deck-stat"><span class="deck-stat-label">Reserve</span><span class="deck-stat-count">{{ stats.reserve }}</span></div>
-    <div class="deck-stat"><span class="deck-stat-label">Log</span><span class="deck-stat-count">{{ stats.log }}</span></div>
+    <div class="deck-stat pile-btn" hx-get="/game/pile/log" hx-target="#pile-inspector" hx-swap="innerHTML" hx-on::before-request="var a=this.classList.contains('pile-active'); document.querySelectorAll('.pile-btn').forEach(function(b){b.classList.remove('pile-active');}); if(a){event.preventDefault(); document.getElementById('pile-inspector').innerHTML='';}else{this.classList.add('pile-active');}"><span class="deck-stat-label">Log</span><span class="deck-stat-count">{{ stats.log }}</span></div>
   </div>
 </div>
 
@@ -15,6 +19,7 @@
   <div class="empty-state">No cards could be drawn — all decks empty.</div>
 {% else %}
   {% for d in drawn %}
+  {% set card_idx = loop.index %}
   <div class="card-result{% if not loop.first %} card-obscured{% endif %}">
 
     <!-- Reveal overlay — shown on all cards except the first -->
@@ -32,6 +37,7 @@
       {% if d.has_do %}
         <span class="do-indicator">Duty Officer Active</span>
       {% endif %}
+      {{ card_move_menu(d.card.id) }}
     </div>
 
     <!-- Traits (resolved first) -->
@@ -102,6 +108,24 @@
             hx-post="/game/duty-officer/dismiss"
             hx-target="#op-result"
             hx-swap="innerHTML">{{ op.label }}</button>
+
+          {% elif op.type == "deploy_current" %}
+          <button class="btn btn-sm btn-op"
+            hx-post="/game/deploy/{{ d.card.id }}"
+            hx-target="#op-result"
+            hx-swap="innerHTML">{{ op.label }}</button>
+
+          {% elif op.type == "warp_neutral" %}
+          <button class="btn btn-sm btn-op"
+            hx-post="/game/warp/{{ d.card.id }}/neutral"
+            hx-target="#op-result"
+            hx-swap="innerHTML">{{ op.label }}</button>
+
+          {% elif op.type == "warp_controlled" %}
+          <button class="btn btn-sm btn-op"
+            hx-post="/game/warp/{{ d.card.id }}/controlled"
+            hx-target="#op-result"
+            hx-swap="innerHTML">{{ op.label }}</button>
           {% endif %}
         {% endfor %}
       </div>
@@ -115,6 +139,66 @@
     </div>
     {% endif %}
 
+    <!-- Quick resource gain + inline card gain/take (only shown when instruction references them) -->
+    {% if d.gain_resources or d.gain_types or d.take_types %}
+    <div class="quick-gain">
+
+      {% if d.gain_resources %}
+      <div class="quick-gain-resources">
+        {% for key, icon, label in [("glory", "★", "Glory"), ("latinum", "◈", "Latinum"), ("dilithium", "◆", "Dilithium")] %}
+        {% if key in d.gain_resources %}
+        <button class="btn btn-xs btn-ghost quick-gain-btn"
+          hx-post="/game/resource"
+          hx-vals='{"resource": "{{ key }}", "delta": 1}'
+          hx-target="#resources-panel"
+          hx-swap="innerHTML">{{ icon }} +{{ label }}</button>
+        {% endif %}
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% if d.gain_types %}
+      <div class="quick-gain-types">
+        <span class="quick-gain-label">Gain → Discard:</span>
+        {% for t in all_types %}{% if t in d.gain_types %}
+        <button class="btn btn-xs type-btn type-{{ t | lower }} inline-type-btn"
+          hx-get="/game/gain-card?type={{ t }}&action=gain"
+          hx-target="#gain-inline-{{ card_idx }}"
+          hx-swap="innerHTML"
+          hx-on::before-request="var a=this.classList.contains('type-btn--active'); var cr=this.closest('.card-result'); cr.querySelectorAll('.inline-type-btn').forEach(function(b){b.classList.remove('type-btn--active');}); if(a){event.preventDefault(); cr.querySelector('.inline-gain-list').innerHTML='';}else{this.classList.add('type-btn--active');}">{{ t }}</button>
+        {% endif %}{% endfor %}
+      </div>
+      {% endif %}
+
+      {% if d.take_types %}
+      <div class="quick-gain-types">
+        <span class="quick-gain-label">Take → Top of Deck:</span>
+        {% for t in all_types %}{% if t in d.take_types %}
+        <button class="btn btn-xs type-btn type-{{ t | lower }} inline-type-btn"
+          hx-get="/game/gain-card?type={{ t }}&action=take"
+          hx-target="#gain-inline-{{ card_idx }}"
+          hx-swap="innerHTML"
+          hx-on::before-request="var a=this.classList.contains('type-btn--active'); var cr=this.closest('.card-result'); cr.querySelectorAll('.inline-type-btn').forEach(function(b){b.classList.remove('type-btn--active');}); if(a){event.preventDefault(); cr.querySelector('.inline-gain-list').innerHTML='';}else{this.classList.add('type-btn--active');}">{{ t }}</button>
+        {% endif %}{% endfor %}
+      </div>
+      {% endif %}
+
+      {% if d.gain_types or d.take_types %}
+      <div id="gain-inline-{{ card_idx }}" class="inline-gain-list"></div>
+      {% endif %}
+
+    </div>
+    {% endif %}
+
   </div>
   {% endfor %}
+
+  {% if drawn %}
+  <div class="end-turn-bar">
+    <button class="btn btn-primary"
+      hx-post="/game/end-turn"
+      hx-target="#op-result"
+      hx-swap="innerHTML">End Turn — Discard Drawn Cards</button>
+  </div>
+  {% endif %}
 {% endif %}

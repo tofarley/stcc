@@ -12,6 +12,13 @@ CAPTAIN_INFO = {
     "set": "CORE",
 }
 
+# Specialty track thresholds — fill in actual values from rulebook.
+SPECIALTY_THRESHOLDS = {
+    "research":  [],
+    "influence": [],
+    "military":  [],
+}
+
 TRAITS = {
     "SURPRISE": {
         "label": "Surprise",
@@ -240,40 +247,40 @@ WITH_DUTY_OFFICER = {
 # Distribution: ALLY×1, CARGO×2, DIRECTIVE×5, LOCATION×1, PERSON×2, SHIP×7, OTHER×5
 # Note: 3 cards start in the discard pile.
 CARDS = [
-    {"id": "sela_captain",      "name": "Sela",             "card_type": "CAPTAIN",   "traits": [], "starting_location": "captain"},
+    {"id": "sela_captain",      "name": "Sela",             "card_type": "CAPTAIN",   "traits": [], "points": 0, "starting_location": "captain"},
 
     # Available ×7
-    {"id": "sela_cargo_01",     "name": "[Cargo 1]",        "card_type": "CARGO",     "traits": [], "starting_location": "available"},
-    {"id": "sela_directive_01", "name": "[Directive 1]",    "card_type": "DIRECTIVE", "traits": [], "starting_location": "available"},
-    {"id": "sela_directive_02", "name": "[Directive 2]",    "card_type": "DIRECTIVE", "traits": [], "starting_location": "available"},
-    {"id": "sela_ship_01",      "name": "[Ship 1]",         "card_type": "SHIP",      "traits": [], "starting_location": "available"},
-    {"id": "sela_ship_02",      "name": "[Ship 2]",         "card_type": "SHIP",      "traits": [], "starting_location": "available"},
-    {"id": "sela_ship_03",      "name": "[Ship 3]",         "card_type": "SHIP",      "traits": [], "starting_location": "available"},
-    {"id": "sela_other_01",     "name": "[Other 1]",        "card_type": "OTHER",     "traits": [], "starting_location": "available"},
+    {"id": "sela_cargo_01",     "name": "[Cargo 1]",        "card_type": "CARGO",     "traits": [], "points": 0, "starting_location": "available"},
+    {"id": "sela_directive_01", "name": "[Directive 1]",    "card_type": "DIRECTIVE", "traits": [], "points": 0, "starting_location": "available"},
+    {"id": "sela_directive_02", "name": "[Directive 2]",    "card_type": "DIRECTIVE", "traits": [], "points": 0, "starting_location": "available"},
+    {"id": "sela_ship_01",      "name": "[Ship 1]",         "card_type": "SHIP",      "traits": [], "points": 0, "starting_location": "available"},
+    {"id": "sela_ship_02",      "name": "[Ship 2]",         "card_type": "SHIP",      "traits": [], "points": 0, "starting_location": "available"},
+    {"id": "sela_ship_03",      "name": "[Ship 3]",         "card_type": "SHIP",      "traits": [], "points": 0, "starting_location": "available"},
+    {"id": "sela_other_01",     "name": "[Other 1]",        "card_type": "OTHER",     "traits": [], "points": 0, "starting_location": "available"},
 
     # Deployed ×1
-    {"id": "sela_ship_04",      "name": "[Ship 4 — Deployed]","card_type": "SHIP",    "traits": [], "starting_location": "deployed"},
+    {"id": "sela_ship_04",      "name": "[Ship 4 — Deployed]","card_type": "SHIP",    "traits": [], "points": 0, "starting_location": "deployed"},
 
     # Reserve ×6
-    {"id": "sela_ally_01",      "name": "[Ally 1]",         "card_type": "ALLY",      "traits": [], "starting_location": "reserve"},
-    {"id": "sela_directive_03", "name": "[Directive 3]",    "card_type": "DIRECTIVE", "traits": [], "starting_location": "reserve"},
-    {"id": "sela_directive_04", "name": "[Directive 4]",    "card_type": "DIRECTIVE", "traits": [], "starting_location": "reserve"},
-    {"id": "sela_ship_05",      "name": "[Ship 5]",         "card_type": "SHIP",      "traits": [], "starting_location": "reserve"},
-    {"id": "sela_ship_06",      "name": "[Ship 6]",         "card_type": "SHIP",      "traits": [], "starting_location": "reserve"},
-    {"id": "sela_other_02",     "name": "[Other 2]",        "card_type": "OTHER",     "traits": [], "starting_location": "reserve"},
+    {"id": "sela_ally_01",      "name": "[Ally 1]",         "card_type": "ALLY",      "traits": [], "points": 0, "starting_location": "reserve"},
+    {"id": "sela_directive_03", "name": "[Directive 3]",    "card_type": "DIRECTIVE", "traits": [], "points": 0, "starting_location": "reserve"},
+    {"id": "sela_directive_04", "name": "[Directive 4]",    "card_type": "DIRECTIVE", "traits": [], "points": 0, "starting_location": "reserve"},
+    {"id": "sela_ship_05",      "name": "[Ship 5]",         "card_type": "SHIP",      "traits": [], "points": 0, "starting_location": "reserve"},
+    {"id": "sela_ship_06",      "name": "[Ship 6]",         "card_type": "SHIP",      "traits": [], "points": 0, "starting_location": "reserve"},
+    {"id": "sela_other_02",     "name": "[Other 2]",        "card_type": "OTHER",     "traits": [], "points": 0, "starting_location": "reserve"},
 
     # Development ×6
-    {"id": "sela_cargo_02",     "name": "[Cargo 2]",        "card_type": "CARGO",     "traits": [], "starting_location": "development"},
-    {"id": "sela_directive_05", "name": "[Directive 5]",    "card_type": "DIRECTIVE", "traits": [], "starting_location": "development"},
-    {"id": "sela_location_01",  "name": "[Location 1]",    "card_type": "LOCATION",  "traits": [], "starting_location": "development"},
-    {"id": "sela_person_01",    "name": "[Person 1]",       "card_type": "PERSON",    "traits": [], "starting_location": "development"},
-    {"id": "sela_ship_07",      "name": "[Ship 7]",         "card_type": "SHIP",      "traits": [], "starting_location": "development"},
-    {"id": "sela_other_03",     "name": "[Other 3]",        "card_type": "OTHER",     "traits": [], "starting_location": "development"},
+    {"id": "sela_cargo_02",     "name": "[Cargo 2]",        "card_type": "CARGO",     "traits": [], "points": 0, "starting_location": "development"},
+    {"id": "sela_directive_05", "name": "[Directive 5]",    "card_type": "DIRECTIVE", "traits": [], "points": 0, "starting_location": "development"},
+    {"id": "sela_location_01",  "name": "[Location 1]",    "card_type": "LOCATION",  "traits": [], "points": 0, "starting_location": "development"},
+    {"id": "sela_person_01",    "name": "[Person 1]",       "card_type": "PERSON",    "traits": [], "points": 0, "starting_location": "development"},
+    {"id": "sela_ship_07",      "name": "[Ship 7]",         "card_type": "SHIP",      "traits": [], "points": 0, "starting_location": "development"},
+    {"id": "sela_other_03",     "name": "[Other 3]",        "card_type": "OTHER",     "traits": [], "points": 0, "starting_location": "development"},
 
     # Discard ×3 (start in discard pile at game start)
-    {"id": "sela_person_02",    "name": "[Person 2]",       "card_type": "PERSON",    "traits": [], "starting_location": "discard"},
-    {"id": "sela_other_04",     "name": "[Other 4]",        "card_type": "OTHER",     "traits": [], "starting_location": "discard"},
-    {"id": "sela_other_05",     "name": "[Other 5]",        "card_type": "OTHER",     "traits": [], "starting_location": "discard"},
+    {"id": "sela_person_02",    "name": "[Person 2]",       "card_type": "PERSON",    "traits": [], "points": 0, "starting_location": "discard"},
+    {"id": "sela_other_04",     "name": "[Other 4]",        "card_type": "OTHER",     "traits": [], "points": 0, "starting_location": "discard"},
+    {"id": "sela_other_05",     "name": "[Other 5]",        "card_type": "OTHER",     "traits": [], "points": 0, "starting_location": "discard"},
 ]
 
 BY_ID = {c["id"]: c for c in CARDS}

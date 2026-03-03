@@ -1,0 +1,18 @@
+<!-- Returned by GET /game/pile/<pile_name>, swapped into #pile-inspector -->
+{% from "partials/card_move_menu.html" import render as card_move_menu %}
+<div class="pile-view">
+  <div class="pile-view-title">{{ pile_name | title }} Pile ({{ cards | length }})</div>
+  {% if cards %}
+  <div class="pile-list">
+    {% for card in cards %}
+    <div class="pile-card">
+      <span class="type-badge type-{{ card.card_type | lower }}">{{ card.card_type }}</span>
+      <span class="pile-card-name">{{ card.name }}</span>
+      {{ card_move_menu(card.id) }}
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="pile-empty">This pile is empty.</div>
+  {% endif %}
+</div>

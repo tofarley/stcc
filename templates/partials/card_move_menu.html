@@ -1,0 +1,33 @@
+{% macro render(card_id) %}
+<details class="card-move-details">
+  <summary class="btn btn-xs btn-ghost card-move-toggle">▾</summary>
+  <div class="card-move-menu">
+    <button class="card-move-item"
+      hx-post="/game/deploy/{{ card_id }}"
+      hx-target="#op-result" hx-swap="innerHTML"
+      hx-on::after-request="this.closest('details').open=false">Deploy</button>
+    <button class="card-move-item"
+      hx-post="/game/warp/{{ card_id }}/neutral"
+      hx-target="#op-result" hx-swap="innerHTML"
+      hx-on::after-request="this.closest('details').open=false">Warp → Neutral Planet</button>
+    <button class="card-move-item"
+      hx-post="/game/warp/{{ card_id }}/controlled"
+      hx-target="#op-result" hx-swap="innerHTML"
+      hx-on::after-request="this.closest('details').open=false">Warp → Controlled Planet</button>
+    <div class="card-move-sep"></div>
+    <button class="card-move-item"
+      hx-post="/game/send/top/{{ card_id }}"
+      hx-target="#op-result" hx-swap="innerHTML"
+      hx-on::after-request="this.closest('details').open=false">→ Top of Deck</button>
+    <button class="card-move-item"
+      hx-post="/game/send/discard/{{ card_id }}"
+      hx-target="#op-result" hx-swap="innerHTML"
+      hx-on::after-request="this.closest('details').open=false">→ Discard Pile</button>
+    <div class="card-move-sep"></div>
+    <button class="card-move-item card-move-item--danger"
+      hx-post="/game/deck/log/{{ card_id }}"
+      hx-target="#op-result" hx-swap="innerHTML"
+      hx-on::after-request="this.closest('details').open=false">Log (remove from game)</button>
+  </div>
+</details>
+{% endmacro %}

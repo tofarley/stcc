@@ -12,6 +12,13 @@ CAPTAIN_INFO = {
     "set": "CORE",
 }
 
+# Specialty track thresholds — fill in actual values from rulebook.
+SPECIALTY_THRESHOLDS = {
+    "research":  [],
+    "influence": [],
+    "military":  [],
+}
+
 TRAITS = {
     "SURPRISE": {
         "label": "Surprise",
@@ -230,38 +237,38 @@ WITH_DUTY_OFFICER = {
 # Placeholder cards — fill in actual names.
 # Distribution: CARGO×3, DIRECTIVE×5, LOCATION×2, PERSON×3, SHIP×7, OTHER×3
 CARDS = [
-    {"id": "koloth_captain",      "name": "Koloth",           "card_type": "CAPTAIN",   "traits": [], "starting_location": "captain"},
+    {"id": "koloth_captain",      "name": "Koloth",           "card_type": "CAPTAIN",   "traits": [], "points": 0, "starting_location": "captain"},
 
     # Available ×10
-    {"id": "koloth_cargo_01",     "name": "[Cargo 1]",        "card_type": "CARGO",     "traits": [], "starting_location": "available"},
-    {"id": "koloth_directive_01", "name": "[Directive 1]",    "card_type": "DIRECTIVE", "traits": [], "starting_location": "available"},
-    {"id": "koloth_directive_02", "name": "[Directive 2]",    "card_type": "DIRECTIVE", "traits": [], "starting_location": "available"},
-    {"id": "koloth_person_01",    "name": "[Person 1]",       "card_type": "PERSON",    "traits": [], "starting_location": "available"},
-    {"id": "koloth_person_02",    "name": "[Person 2]",       "card_type": "PERSON",    "traits": [], "starting_location": "available"},
-    {"id": "koloth_ship_01",      "name": "[Ship 1]",         "card_type": "SHIP",      "traits": [], "starting_location": "available"},
-    {"id": "koloth_ship_02",      "name": "[Ship 2]",         "card_type": "SHIP",      "traits": [], "starting_location": "available"},
-    {"id": "koloth_ship_03",      "name": "[Ship 3]",         "card_type": "SHIP",      "traits": [], "starting_location": "available"},
-    {"id": "koloth_ship_04",      "name": "[Ship 4]",         "card_type": "SHIP",      "traits": [], "starting_location": "available"},
-    {"id": "koloth_other_01",     "name": "[Other 1]",        "card_type": "OTHER",     "traits": [], "starting_location": "available"},
+    {"id": "koloth_cargo_01",     "name": "[Cargo 1]",        "card_type": "CARGO",     "traits": [], "points": 0, "starting_location": "available"},
+    {"id": "koloth_directive_01", "name": "[Directive 1]",    "card_type": "DIRECTIVE", "traits": [], "points": 0, "starting_location": "available"},
+    {"id": "koloth_directive_02", "name": "[Directive 2]",    "card_type": "DIRECTIVE", "traits": [], "points": 0, "starting_location": "available"},
+    {"id": "koloth_person_01",    "name": "[Person 1]",       "card_type": "PERSON",    "traits": [], "points": 0, "starting_location": "available"},
+    {"id": "koloth_person_02",    "name": "[Person 2]",       "card_type": "PERSON",    "traits": [], "points": 0, "starting_location": "available"},
+    {"id": "koloth_ship_01",      "name": "[Ship 1]",         "card_type": "SHIP",      "traits": [], "points": 0, "starting_location": "available"},
+    {"id": "koloth_ship_02",      "name": "[Ship 2]",         "card_type": "SHIP",      "traits": [], "points": 0, "starting_location": "available"},
+    {"id": "koloth_ship_03",      "name": "[Ship 3]",         "card_type": "SHIP",      "traits": [], "points": 0, "starting_location": "available"},
+    {"id": "koloth_ship_04",      "name": "[Ship 4]",         "card_type": "SHIP",      "traits": [], "points": 0, "starting_location": "available"},
+    {"id": "koloth_other_01",     "name": "[Other 1]",        "card_type": "OTHER",     "traits": [], "points": 0, "starting_location": "available"},
 
     # Deployed ×1
-    {"id": "koloth_ship_05",      "name": "[Ship 5 — Deployed]","card_type": "SHIP",    "traits": [], "starting_location": "deployed"},
+    {"id": "koloth_ship_05",      "name": "[Ship 5 — Deployed]","card_type": "SHIP",    "traits": [], "points": 0, "starting_location": "deployed"},
 
     # Reserve ×5
-    {"id": "koloth_cargo_02",     "name": "[Cargo 2]",        "card_type": "CARGO",     "traits": [], "starting_location": "reserve"},
-    {"id": "koloth_directive_03", "name": "[Directive 3]",    "card_type": "DIRECTIVE", "traits": [], "starting_location": "reserve"},
-    {"id": "koloth_directive_04", "name": "[Directive 4]",    "card_type": "DIRECTIVE", "traits": [], "starting_location": "reserve"},
-    {"id": "koloth_location_01",  "name": "[Location 1]",    "card_type": "LOCATION",  "traits": [], "starting_location": "reserve"},
-    {"id": "koloth_person_03",    "name": "[Person 3]",       "card_type": "PERSON",    "traits": [], "starting_location": "reserve"},
+    {"id": "koloth_cargo_02",     "name": "[Cargo 2]",        "card_type": "CARGO",     "traits": [], "points": 0, "starting_location": "reserve"},
+    {"id": "koloth_directive_03", "name": "[Directive 3]",    "card_type": "DIRECTIVE", "traits": [], "points": 0, "starting_location": "reserve"},
+    {"id": "koloth_directive_04", "name": "[Directive 4]",    "card_type": "DIRECTIVE", "traits": [], "points": 0, "starting_location": "reserve"},
+    {"id": "koloth_location_01",  "name": "[Location 1]",    "card_type": "LOCATION",  "traits": [], "points": 0, "starting_location": "reserve"},
+    {"id": "koloth_person_03",    "name": "[Person 3]",       "card_type": "PERSON",    "traits": [], "points": 0, "starting_location": "reserve"},
 
     # Development ×7
-    {"id": "koloth_cargo_03",     "name": "[Cargo 3]",        "card_type": "CARGO",     "traits": [], "starting_location": "development"},
-    {"id": "koloth_directive_05", "name": "[Directive 5]",    "card_type": "DIRECTIVE", "traits": [], "starting_location": "development"},
-    {"id": "koloth_location_02",  "name": "[Location 2]",    "card_type": "LOCATION",  "traits": [], "starting_location": "development"},
-    {"id": "koloth_ship_06",      "name": "[Ship 6]",         "card_type": "SHIP",      "traits": [], "starting_location": "development"},
-    {"id": "koloth_ship_07",      "name": "[Ship 7]",         "card_type": "SHIP",      "traits": [], "starting_location": "development"},
-    {"id": "koloth_other_02",     "name": "[Other 2]",        "card_type": "OTHER",     "traits": [], "starting_location": "development"},
-    {"id": "koloth_other_03",     "name": "[Other 3]",        "card_type": "OTHER",     "traits": [], "starting_location": "development"},
+    {"id": "koloth_cargo_03",     "name": "[Cargo 3]",        "card_type": "CARGO",     "traits": [], "points": 0, "starting_location": "development"},
+    {"id": "koloth_directive_05", "name": "[Directive 5]",    "card_type": "DIRECTIVE", "traits": [], "points": 0, "starting_location": "development"},
+    {"id": "koloth_location_02",  "name": "[Location 2]",    "card_type": "LOCATION",  "traits": [], "points": 0, "starting_location": "development"},
+    {"id": "koloth_ship_06",      "name": "[Ship 6]",         "card_type": "SHIP",      "traits": [], "points": 0, "starting_location": "development"},
+    {"id": "koloth_ship_07",      "name": "[Ship 7]",         "card_type": "SHIP",      "traits": [], "points": 0, "starting_location": "development"},
+    {"id": "koloth_other_02",     "name": "[Other 2]",        "card_type": "OTHER",     "traits": [], "points": 0, "starting_location": "development"},
+    {"id": "koloth_other_03",     "name": "[Other 3]",        "card_type": "OTHER",     "traits": [], "points": 0, "starting_location": "development"},
 ]
 
 BY_ID = {c["id"]: c for c in CARDS}

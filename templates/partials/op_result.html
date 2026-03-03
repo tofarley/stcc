@@ -6,9 +6,9 @@
   <div class="panel-title">Decks</div>
   <div class="deck-stats">
     <div class="deck-stat"><span class="deck-stat-label">Draw</span><span class="deck-stat-count">{{ stats.draw }}</span></div>
-    <div class="deck-stat"><span class="deck-stat-label">Discard</span><span class="deck-stat-count">{{ stats.discard }}</span></div>
+    <div class="deck-stat pile-btn" hx-get="/game/pile/discard" hx-target="#pile-inspector" hx-swap="innerHTML" hx-on::before-request="var a=this.classList.contains('pile-active'); document.querySelectorAll('.pile-btn').forEach(function(b){b.classList.remove('pile-active');}); if(a){event.preventDefault(); document.getElementById('pile-inspector').innerHTML='';}else{this.classList.add('pile-active');}"><span class="deck-stat-label">Discard</span><span class="deck-stat-count">{{ stats.discard }}</span></div>
     <div class="deck-stat"><span class="deck-stat-label">Reserve</span><span class="deck-stat-count">{{ stats.reserve }}</span></div>
-    <div class="deck-stat"><span class="deck-stat-label">Log</span><span class="deck-stat-count">{{ stats.log }}</span></div>
+    <div class="deck-stat pile-btn" hx-get="/game/pile/log" hx-target="#pile-inspector" hx-swap="innerHTML" hx-on::before-request="var a=this.classList.contains('pile-active'); document.querySelectorAll('.pile-btn').forEach(function(b){b.classList.remove('pile-active');}); if(a){event.preventDefault(); document.getElementById('pile-inspector').innerHTML='';}else{this.classList.add('pile-active');}"><span class="deck-stat-label">Log</span><span class="deck-stat-count">{{ stats.log }}</span></div>
   </div>
 </div>
 {% endif %}
@@ -36,6 +36,16 @@
     <div class="do-empty">No Duty Officer assigned</div>
   {% endif %}
 </div>
+{% endif %}
+
+{% if deployed_display is defined %}
+<div hx-swap-oob="innerHTML:#deployed-panel">
+  {% include "partials/deployed_panel.html" %}
+</div>
+{% endif %}
+
+{% if clear_draw_result is defined %}
+<div hx-swap-oob="innerHTML:#draw-result"></div>
 {% endif %}
 
 <div class="op-feedback">

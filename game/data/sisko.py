@@ -13,6 +13,13 @@ CAPTAIN_INFO = {
     "set": "CORE",
 }
 
+# Specialty track thresholds — fill in actual values from rulebook.
+SPECIALTY_THRESHOLDS = {
+    "research":  [],
+    "influence": [],
+    "military":  [],
+}
+
 TRAITS = {
     "SURPRISE": {
         "label": "Surprise",
@@ -248,41 +255,41 @@ WITH_DUTY_OFFICER = {
 # Distribution: ALLY×1, CARGO×2, DIRECTIVE×5, ENCOUNTER×1, INCIDENT×1,
 #               LOCATION×3, PERSON×8, SHIP×3
 CARDS = [
-    {"id": "sisko_captain",      "name": "Sisko",              "card_type": "CAPTAIN",   "traits": [], "starting_location": "captain"},
+    {"id": "sisko_captain",      "name": "Sisko",              "card_type": "CAPTAIN",   "traits": [], "points": 0, "starting_location": "captain"},
 
     # Available ×10
-    {"id": "sisko_ally_01",      "name": "[Ally 1]",           "card_type": "ALLY",      "traits": [], "starting_location": "available"},
-    {"id": "sisko_cargo_01",     "name": "[Cargo 1]",          "card_type": "CARGO",     "traits": [], "starting_location": "available"},
-    {"id": "sisko_directive_01", "name": "[Directive 1]",      "card_type": "DIRECTIVE", "traits": [], "starting_location": "available"},
-    {"id": "sisko_directive_02", "name": "[Directive 2]",      "card_type": "DIRECTIVE", "traits": [], "starting_location": "available"},
-    {"id": "sisko_person_01",    "name": "[Person 1]",         "card_type": "PERSON",    "traits": [], "starting_location": "available"},
-    {"id": "sisko_person_02",    "name": "[Person 2]",         "card_type": "PERSON",    "traits": [], "starting_location": "available"},
-    {"id": "sisko_person_03",    "name": "[Person 3]",         "card_type": "PERSON",    "traits": [], "starting_location": "available"},
-    {"id": "sisko_person_04",    "name": "[Person 4]",         "card_type": "PERSON",    "traits": [], "starting_location": "available"},
-    {"id": "sisko_ship_01",      "name": "[Ship 1]",           "card_type": "SHIP",      "traits": [], "starting_location": "available"},
-    {"id": "sisko_location_01",  "name": "[Location 1]",      "card_type": "LOCATION",  "traits": [], "starting_location": "available"},
+    {"id": "sisko_ally_01",      "name": "[Ally 1]",           "card_type": "ALLY",      "traits": [], "points": 0, "starting_location": "available"},
+    {"id": "sisko_cargo_01",     "name": "[Cargo 1]",          "card_type": "CARGO",     "traits": [], "points": 0, "starting_location": "available"},
+    {"id": "sisko_directive_01", "name": "[Directive 1]",      "card_type": "DIRECTIVE", "traits": [], "points": 0, "starting_location": "available"},
+    {"id": "sisko_directive_02", "name": "[Directive 2]",      "card_type": "DIRECTIVE", "traits": [], "points": 0, "starting_location": "available"},
+    {"id": "sisko_person_01",    "name": "[Person 1]",         "card_type": "PERSON",    "traits": [], "points": 0, "starting_location": "available"},
+    {"id": "sisko_person_02",    "name": "[Person 2]",         "card_type": "PERSON",    "traits": [], "points": 0, "starting_location": "available"},
+    {"id": "sisko_person_03",    "name": "[Person 3]",         "card_type": "PERSON",    "traits": [], "points": 0, "starting_location": "available"},
+    {"id": "sisko_person_04",    "name": "[Person 4]",         "card_type": "PERSON",    "traits": [], "points": 0, "starting_location": "available"},
+    {"id": "sisko_ship_01",      "name": "[Ship 1]",           "card_type": "SHIP",      "traits": [], "points": 0, "starting_location": "available"},
+    {"id": "sisko_location_01",  "name": "[Location 1]",      "card_type": "LOCATION",  "traits": [], "points": 0, "starting_location": "available"},
 
     # Controlled Location ×1 (shuffled with deployed, placed on top of draw deck)
-    {"id": "sisko_location_02",  "name": "[Location 2 — Controlled]", "card_type": "LOCATION", "traits": [], "starting_location": "controlled_location"},
+    {"id": "sisko_location_02",  "name": "[Location 2 — Controlled]", "card_type": "LOCATION", "traits": [], "points": 0, "starting_location": "controlled_location"},
 
     # Deployed ×1
-    {"id": "sisko_ship_02",      "name": "[Ship 2 — Deployed]","card_type": "SHIP",      "traits": [], "starting_location": "deployed"},
+    {"id": "sisko_ship_02",      "name": "[Ship 2 — Deployed]","card_type": "SHIP",      "traits": [], "points": 0, "starting_location": "deployed"},
 
     # Reserve ×5
-    {"id": "sisko_cargo_02",     "name": "[Cargo 2]",          "card_type": "CARGO",     "traits": [], "starting_location": "reserve"},
-    {"id": "sisko_directive_03", "name": "[Directive 3]",      "card_type": "DIRECTIVE", "traits": [], "starting_location": "reserve"},
-    {"id": "sisko_directive_04", "name": "[Directive 4]",      "card_type": "DIRECTIVE", "traits": [], "starting_location": "reserve"},
-    {"id": "sisko_person_05",    "name": "[Person 5]",         "card_type": "PERSON",    "traits": [], "starting_location": "reserve"},
-    {"id": "sisko_person_06",    "name": "[Person 6]",         "card_type": "PERSON",    "traits": [], "starting_location": "reserve"},
+    {"id": "sisko_cargo_02",     "name": "[Cargo 2]",          "card_type": "CARGO",     "traits": [], "points": 0, "starting_location": "reserve"},
+    {"id": "sisko_directive_03", "name": "[Directive 3]",      "card_type": "DIRECTIVE", "traits": [], "points": 0, "starting_location": "reserve"},
+    {"id": "sisko_directive_04", "name": "[Directive 4]",      "card_type": "DIRECTIVE", "traits": [], "points": 0, "starting_location": "reserve"},
+    {"id": "sisko_person_05",    "name": "[Person 5]",         "card_type": "PERSON",    "traits": [], "points": 0, "starting_location": "reserve"},
+    {"id": "sisko_person_06",    "name": "[Person 6]",         "card_type": "PERSON",    "traits": [], "points": 0, "starting_location": "reserve"},
 
     # Development ×7
-    {"id": "sisko_directive_05", "name": "[Directive 5]",      "card_type": "DIRECTIVE", "traits": [], "starting_location": "development"},
-    {"id": "sisko_encounter_01", "name": "[Encounter 1]",      "card_type": "ENCOUNTER", "traits": [], "starting_location": "development"},
-    {"id": "sisko_incident_01",  "name": "[Incident 1]",       "card_type": "INCIDENT",  "traits": [], "starting_location": "development"},
-    {"id": "sisko_location_03",  "name": "[Location 3]",      "card_type": "LOCATION",  "traits": [], "starting_location": "development"},
-    {"id": "sisko_person_07",    "name": "[Person 7]",         "card_type": "PERSON",    "traits": [], "starting_location": "development"},
-    {"id": "sisko_person_08",    "name": "[Person 8]",         "card_type": "PERSON",    "traits": [], "starting_location": "development"},
-    {"id": "sisko_ship_03",      "name": "[Ship 3]",           "card_type": "SHIP",      "traits": [], "starting_location": "development"},
+    {"id": "sisko_directive_05", "name": "[Directive 5]",      "card_type": "DIRECTIVE", "traits": [], "points": 0, "starting_location": "development"},
+    {"id": "sisko_encounter_01", "name": "[Encounter 1]",      "card_type": "ENCOUNTER", "traits": [], "points": 0, "starting_location": "development"},
+    {"id": "sisko_incident_01",  "name": "[Incident 1]",       "card_type": "INCIDENT",  "traits": [], "points": 0, "starting_location": "development"},
+    {"id": "sisko_location_03",  "name": "[Location 3]",      "card_type": "LOCATION",  "traits": [], "points": 0, "starting_location": "development"},
+    {"id": "sisko_person_07",    "name": "[Person 7]",         "card_type": "PERSON",    "traits": [], "points": 0, "starting_location": "development"},
+    {"id": "sisko_person_08",    "name": "[Person 8]",         "card_type": "PERSON",    "traits": [], "points": 0, "starting_location": "development"},
+    {"id": "sisko_ship_03",      "name": "[Ship 3]",           "card_type": "SHIP",      "traits": [], "points": 0, "starting_location": "development"},
 ]
 
 BY_ID = {c["id"]: c for c in CARDS}
