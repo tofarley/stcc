@@ -1,3 +1,5 @@
+import copy
+
 from flask import Flask, render_template, session, request, redirect, url_for
 
 from game import engine
@@ -68,6 +70,8 @@ def game():
 def draw():
     count = max(1, min(int(request.form.get("count", 1)), 10))
     state = _game()
+    session["pre_turn_state"] = copy.deepcopy(state)
+    session.modified = True
 
     drawn_displays = []
     for _ in range(count):
@@ -374,6 +378,27 @@ def recall_card(card_id):
         affected_cards=[],
         stats=engine.deck_stats(state),
         deployed_display=engine.get_deployed_display(state),
+    )
+
+
+# ── Undo turn ─────────────────────────────────────────────────────────────────
+
+@app.route("/game/undo-turn", methods=["POST"])
+def undo_turn():
+    if "pre_turn_state" not in session:
+        return "", 400
+    state = copy.deepcopy(session["pre_turn_state"])
+    _save(state)
+    module = engine.get_captain_module(state["captain_id"])
+    do_card = engine.get_card(state["duty_officer_card"]) if state["duty_officer_card"] else None
+    return render_template(
+        "partials/undo_result.html",
+        state=state,
+        stats=engine.deck_stats(state),
+        do_card=do_card,
+        has_do=state["has_duty_officer"],
+        deployed_display=engine.get_deployed_display(state),
+        specialty_info=engine.get_specialty_info(state),
     )
 
 

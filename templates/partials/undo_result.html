@@ -1,0 +1,51 @@
+<!-- Undo turn result — swapped into #draw-result -->
+
+<!-- Clear op feedback log -->
+<div hx-swap-oob="innerHTML:#op-result"></div>
+
+<!-- Restore deck stats -->
+<div hx-swap-oob="innerHTML:#deck-status">
+  <div class="panel-title">Decks</div>
+  <div class="deck-stats">
+    <div class="deck-stat"><span class="deck-stat-label">Draw</span><span class="deck-stat-count">{{ stats.draw }}</span></div>
+    <div class="deck-stat pile-btn" hx-get="/game/pile/discard" hx-target="#pile-inspector" hx-swap="innerHTML" hx-on::before-request="var a=this.classList.contains('pile-active'); document.querySelectorAll('.pile-btn').forEach(function(b){b.classList.remove('pile-active');}); if(a){event.preventDefault(); document.getElementById('pile-inspector').innerHTML='';}else{this.classList.add('pile-active');}"><span class="deck-stat-label">Discard</span><span class="deck-stat-count">{{ stats.discard }}</span></div>
+    <div class="deck-stat"><span class="deck-stat-label">Reserve</span><span class="deck-stat-count">{{ stats.reserve }}</span></div>
+    <div class="deck-stat pile-btn" hx-get="/game/pile/log" hx-target="#pile-inspector" hx-swap="innerHTML" hx-on::before-request="var a=this.classList.contains('pile-active'); document.querySelectorAll('.pile-btn').forEach(function(b){b.classList.remove('pile-active');}); if(a){event.preventDefault(); document.getElementById('pile-inspector').innerHTML='';}else{this.classList.add('pile-active');}"><span class="deck-stat-label">Log</span><span class="deck-stat-count">{{ stats.log }}</span></div>
+  </div>
+</div>
+
+<!-- Restore duty officer panel -->
+<div hx-swap-oob="innerHTML:#do-panel">
+  <div class="panel-title">Duty Officer</div>
+  {% if has_do and do_card %}
+    <div class="do-active">
+      <span class="type-badge type-{{ do_card.card_type | lower }}">{{ do_card.card_type }}</span>
+      <span class="do-name">{{ do_card.name }}</span>
+    </div>
+    <div class="do-actions">
+      <button class="btn btn-sm btn-danger"
+        hx-post="/game/duty-officer/log"
+        hx-target="#op-result"
+        hx-swap="beforeend">Log DO</button>
+      <button class="btn btn-sm btn-ghost"
+        hx-post="/game/duty-officer/dismiss"
+        hx-target="#op-result"
+        hx-swap="beforeend">Dismiss</button>
+    </div>
+  {% else %}
+    <div class="do-empty">No Duty Officer assigned</div>
+  {% endif %}
+</div>
+
+<!-- Restore deployed panel -->
+<div hx-swap-oob="innerHTML:#deployed-panel">
+  {% include "partials/deployed_panel.html" %}
+</div>
+
+<!-- Restore resources panel -->
+<div hx-swap-oob="innerHTML:#resources-panel">
+  {% include "partials/resources.html" %}
+</div>
+
+<!-- Main content: reset draw area -->
+<div class="empty-state">Turn undone — flip cards to begin again.</div>

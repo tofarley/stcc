@@ -199,6 +199,10 @@
       hx-post="/game/end-turn"
       hx-target="#op-result"
       hx-swap="beforeend">End Turn — Discard Drawn Cards</button>
+    <button class="btn btn-ghost"
+      hx-post="/game/undo-turn"
+      hx-target="#draw-result"
+      hx-swap="innerHTML">↩ Undo Turn</button>
   </div>
   {% endif %}
 {% endif %}
