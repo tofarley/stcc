@@ -1,5 +1,5 @@
 {% macro render(card_id) %}
-<details class="card-move-details">
+<details class="card-move-details" ontoggle="if(this.open){var b=this.querySelector('summary').getBoundingClientRect();var m=this.querySelector('.card-move-menu');m.style.top=(b.bottom+4)+'px';m.style.right=(window.innerWidth-b.right)+'px';}">
   <summary class="btn btn-xs btn-ghost card-move-toggle">▾</summary>
   <div class="card-move-menu">
     <button class="card-move-item"

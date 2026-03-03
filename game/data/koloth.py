@@ -12,11 +12,30 @@ CAPTAIN_INFO = {
     "set": "CORE",
 }
 
-# Specialty track thresholds — fill in actual values from rulebook.
+# Each entry is a list of {"at": N, "multiplier": M} steps in ascending order.
+# The active multiplier is the highest step whose "at" value ≤ current track value.
 SPECIALTY_THRESHOLDS = {
-    "research":  [],
-    "influence": [],
-    "military":  [],
+    "research": [
+        {"at": 0,  "multiplier": 1},
+        {"at": 5,  "multiplier": 3},
+        {"at": 10, "multiplier": 4},
+        {"at": 14, "multiplier": 5},
+    ],
+    "influence": [
+        {"at": 0,  "multiplier": 1},
+        {"at": 3,  "multiplier": 2},
+        {"at": 8,  "multiplier": 3},
+        {"at": 11, "multiplier": 5},
+        {"at": 15, "multiplier": 7},
+    ],
+    "military": [
+        {"at": 0,  "multiplier": 1},
+        {"at": 2,  "multiplier": 2},
+        {"at": 7,  "multiplier": 3},
+        {"at": 10, "multiplier": 4},
+        {"at": 13, "multiplier": 5},
+        {"at": 15, "multiplier": 7},
+    ],
 }
 
 TRAITS = {

@@ -307,10 +307,8 @@ button:hover, .btn:hover { background: var(--border); }
 .card-move-details summary::-webkit-details-marker { display: none; }
 .card-move-toggle  { font-size: 13px; padding: 2px 8px; }
 .card-move-menu {
-  position: absolute;
-  right: 0;
-  top: calc(100% + 4px);
-  z-index: 50;
+  position: fixed;
+  z-index: 200;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
