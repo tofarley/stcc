@@ -381,4 +381,5 @@ def reset():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ["PORT"]) if "PORT" in os.environ else None
+    app.run(debug=True, port=port)
