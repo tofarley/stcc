@@ -26,6 +26,21 @@ CAPTAINS = {
 }
 
 
+# ── Debug helpers ─────────────────────────────────────────────────────────────
+
+def _print_deck(label: str, card_ids: list) -> None:
+    """Print the ordered contents of a deck to stdout for physical play tracking."""
+    print(f"\n{'='*60}")
+    print(f"  {label}  ({len(card_ids)} cards)")
+    print(f"{'='*60}")
+    for i, cid in enumerate(card_ids, 1):
+        card = get_card(cid)
+        name = card["name"] if card else cid
+        ctype = card["card_type"] if card else "?"
+        print(f"  {i:>2}. [{ctype}] {name}")
+    print()
+
+
 # ── Card lookup ───────────────────────────────────────────────────────────────
 
 def get_card(card_id: str) -> Optional[dict]:
@@ -71,6 +86,9 @@ def initialize_game(captain_id: str) -> dict:
     random.shuffle(development)
     reserve_deck = reserve + development
 
+    _print_deck(f"GAME START — Draw Deck ({captain_id.upper()})", draw_deck)
+    _print_deck(f"GAME START — Reserve Deck ({captain_id.upper()})", reserve_deck)
+
     return {
         "captain_id":       captain_id,
         "draw_deck":        draw_deck,
@@ -111,6 +129,7 @@ def _refresh_deck(state: dict) -> dict:
         new_draw.insert(0, top_reserve)
 
     state["draw_deck"] = new_draw
+    _print_deck("DECK REFRESH — New Draw Deck", new_draw)
     return state
 
 
@@ -440,3 +459,61 @@ def deck_stats(state: dict) -> dict:
         "reserve": len(state["reserve_deck"]),
         "log":     len(state["log_pile"]),
     }
+
+
+# ── Scoring ───────────────────────────────────────────────────────────────────
+
+def _get_multiplier(steps: list, track_value: int) -> int:
+    """Return the active multiplier for a specialty track given the current track value."""
+    multiplier = 1
+    for step in steps:
+        if track_value >= step["at"]:
+            multiplier = step["multiplier"]
+        else:
+            break
+    return multiplier
+
+
+def calculate_score(state: dict) -> dict:
+    """
+    Calculate the end-game score from logged cards.
+
+    Returns:
+      {
+        "flat": <int>,                          # sum of points on non-specialty logged cards
+        "specialty": {
+          "research":  {"count": N, "multiplier": M, "score": N*M},
+          "influence": {"count": N, "multiplier": M, "score": N*M},
+          "military":  {"count": N, "multiplier": M, "score": N*M},
+        },
+        "total": <int>,
+      }
+    """
+    module = get_captain_module(state["captain_id"])
+    thresholds = module.SPECIALTY_THRESHOLDS
+    resources = state.get("resources", {})
+
+    flat = 0
+    counts = {track: 0 for track in thresholds}
+
+    for card_id in state.get("log_pile", []):
+        card = get_card(card_id)
+        if card is None:
+            continue
+        sp = card.get("specialty")
+        if sp and sp in counts:
+            counts[sp] += 1
+        else:
+            flat += card.get("points", 0)
+
+    specialty = {}
+    for track, count in counts.items():
+        multiplier = _get_multiplier(thresholds[track], resources.get(track, 0))
+        specialty[track] = {
+            "count":      count,
+            "multiplier": multiplier,
+            "score":      count * multiplier,
+        }
+
+    total = flat + sum(s["score"] for s in specialty.values())
+    return {"flat": flat, "specialty": specialty, "total": total}

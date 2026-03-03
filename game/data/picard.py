@@ -267,38 +267,38 @@ WITH_DUTY_OFFICER = {
 
 # Distribution: ALLY×1, CARGO×1, DIRECTIVE×8, INCIDENT×1, LOCATION×3, PERSON×6, SHIP×3
 CARDS = [
-    {"id": "picard_captain",           "name": "Picard",               "card_type": "CAPTAIN",   "traits": [],                                              "points": 0, "starting_location": "captain"},
+    {"id": "picard_captain",           "name": "Picard",               "card_type": "CAPTAIN",   "traits": [],                                              "points": 0, "specialty": None, "starting_location": "captain"},
 
     # Available ×10
-    {"id": "picard_loc_farpoint",      "name": "Farpoint Station",     "card_type": "LOCATION",  "traits": ["BUSINESS", "ANOMOLY"],                         "points": 0, "starting_location": "available"},
-    {"id": "picard_dir_snw",           "name": "Strange New Worlds",   "card_type": "DIRECTIVE", "traits": [],                                              "points": 0, "starting_location": "available"},
-    {"id": "picard_dir_diplomacy",     "name": "Diplomacy",            "card_type": "DIRECTIVE", "traits": [],                                              "points": 0, "starting_location": "available"},
-    {"id": "picard_per_worf",          "name": "Worf",                 "card_type": "PERSON",    "traits": ["STARFLEET", "SECURITY", "KLINGON", "ATTACK"],   "points": 0, "starting_location": "available"},
-    {"id": "picard_per_riker",         "name": "Will Riker",           "card_type": "PERSON",    "traits": ["STARFLEET", "HUMAN"],                          "points": 0, "starting_location": "available"},
-    {"id": "picard_dir_set_a_course",  "name": "Set a Course",         "card_type": "DIRECTIVE", "traits": [],                                              "points": 0, "starting_location": "available"},
-    {"id": "picard_dir_utilize",       "name": "Utilize Resources",    "card_type": "DIRECTIVE", "traits": [],                                              "points": 0, "starting_location": "available"},
-    {"id": "picard_inc_red_alert",     "name": "Red Alert",            "card_type": "INCIDENT",  "traits": [],                                              "points": 0, "starting_location": "available"},
-    {"id": "picard_dir_recruit",       "name": "Recruit",              "card_type": "DIRECTIVE", "traits": [],                                              "points": 0, "starting_location": "available"},
-    {"id": "picard_dir_analyze",       "name": "Analyze",              "card_type": "DIRECTIVE", "traits": [],                                              "points": 0, "starting_location": "available"},
+    {"id": "picard_loc_farpoint",      "name": "Farpoint Station",     "card_type": "LOCATION",  "traits": ["BUSINESS", "ANOMOLY"],                         "points": 0, "specialty": None, "starting_location": "available"},
+    {"id": "picard_dir_snw",           "name": "Strange New Worlds",   "card_type": "DIRECTIVE", "traits": [],                                              "points": 0, "specialty": None, "starting_location": "available"},
+    {"id": "picard_dir_diplomacy",     "name": "Diplomacy",            "card_type": "DIRECTIVE", "traits": [],                                              "points": 0, "specialty": None, "starting_location": "available"},
+    {"id": "picard_per_worf",          "name": "Worf",                 "card_type": "PERSON",    "traits": ["STARFLEET", "SECURITY", "KLINGON", "ATTACK"],   "points": 0, "specialty": None, "starting_location": "available"},
+    {"id": "picard_per_riker",         "name": "Will Riker",           "card_type": "PERSON",    "traits": ["STARFLEET", "HUMAN"],                          "points": 0, "specialty": None, "starting_location": "available"},
+    {"id": "picard_dir_set_a_course",  "name": "Set a Course",         "card_type": "DIRECTIVE", "traits": [],                                              "points": 0, "specialty": None, "starting_location": "available"},
+    {"id": "picard_dir_utilize",       "name": "Utilize Resources",    "card_type": "DIRECTIVE", "traits": [],                                              "points": 0, "specialty": None, "starting_location": "available"},
+    {"id": "picard_inc_red_alert",     "name": "Red Alert",            "card_type": "INCIDENT",  "traits": [],                                              "points": 0, "specialty": None, "starting_location": "available"},
+    {"id": "picard_dir_recruit",       "name": "Recruit",              "card_type": "DIRECTIVE", "traits": [],                                              "points": 0, "specialty": None, "starting_location": "available"},
+    {"id": "picard_dir_analyze",       "name": "Analyze",              "card_type": "DIRECTIVE", "traits": [],                                              "points": 0, "specialty": None, "starting_location": "available"},
 
     # Deployed ×1
-    {"id": "picard_ship_enterprise_d", "name": "U.S.S. Enterprise-D", "card_type": "SHIP",      "traits": ["STARFLEET"],                                   "points": 0, "starting_location": "deployed"},
+    {"id": "picard_ship_enterprise_d", "name": "U.S.S. Enterprise-D", "card_type": "SHIP",      "traits": ["STARFLEET"],                                   "points": 0, "specialty": None, "starting_location": "deployed"},
 
     # Reserve ×4
-    {"id": "picard_per_data",          "name": "Data",                 "card_type": "PERSON",    "traits": ["STARFLEET", "ANDROID", "SYNTHETIC", "OPS"],    "points": 0, "starting_location": "reserve"},
-    {"id": "picard_ship_type7",        "name": "Type 7 Shuttlecraft",  "card_type": "SHIP",      "traits": ["STARFLEET"],                                   "points": 0, "starting_location": "reserve"},
-    {"id": "picard_per_crusher",       "name": "Beverly Crusher",      "card_type": "PERSON",    "traits": ["STARFLEET", "HUMAN", "DOCTOR"],                "points": 0, "starting_location": "reserve"},
-    {"id": "picard_dir_first_contact", "name": "First Contact",        "card_type": "DIRECTIVE", "traits": [],                                              "points": 0, "starting_location": "reserve"},
+    {"id": "picard_per_data",          "name": "Data",                 "card_type": "PERSON",    "traits": ["STARFLEET", "ANDROID", "SYNTHETIC", "OPS"],    "points": 0, "specialty": None, "starting_location": "reserve"},
+    {"id": "picard_ship_type7",        "name": "Type 7 Shuttlecraft",  "card_type": "SHIP",      "traits": ["STARFLEET"],                                   "points": 0, "specialty": None, "starting_location": "reserve"},
+    {"id": "picard_per_crusher",       "name": "Beverly Crusher",      "card_type": "PERSON",    "traits": ["STARFLEET", "HUMAN", "DOCTOR"],                "points": 0, "specialty": None, "starting_location": "reserve"},
+    {"id": "picard_dir_first_contact", "name": "First Contact",        "card_type": "DIRECTIVE", "traits": [],                                              "points": 0, "specialty": None, "starting_location": "reserve"},
 
     # Development ×8
-    {"id": "picard_per_troi",          "name": "Deanna Troi",          "card_type": "PERSON",    "traits": ["STARFLEET", "BETAZOID", "TELEPATH", "HUMAN"],  "points": 0, "starting_location": "development"},
-    {"id": "picard_cargo_phasing",     "name": "Phasing Cloak",        "card_type": "CARGO",     "traits": ["STARFLEET", "ONGOING", "WEAPON", "CLOAK"],     "points": 0, "starting_location": "development"},
-    {"id": "picard_loc_starbase74",    "name": "Starbase 74",          "card_type": "LOCATION",  "traits": ["STARFLEET", "STARBASE"],                       "points": 0, "starting_location": "development"},
-    {"id": "picard_dir_make_it_so",    "name": "Make It So",           "card_type": "DIRECTIVE", "traits": [],                                              "points": 0, "starting_location": "development"},
-    {"id": "picard_loc_daystrom",      "name": "Daystrom Institute",   "card_type": "LOCATION",  "traits": ["STARFLEET", "ANDROID"],                        "points": 0, "starting_location": "development"},
-    {"id": "picard_per_laforge",       "name": "Geordi LaForge",       "card_type": "PERSON",    "traits": ["STARFLEET", "HUMAN", "ENGINEER", "PILOT"],     "points": 0, "starting_location": "development"},
-    {"id": "picard_ship_bozeman",      "name": "U.S.S. Bozeman",       "card_type": "SHIP",      "traits": ["TIME TRAVEL", "STARFLEET", "ANOMOLY"],         "points": 0, "starting_location": "development"},
-    {"id": "picard_ally_tamarians",    "name": "Tamarians",            "card_type": "ALLY",      "traits": ["ALIEN"],                                       "points": 0, "starting_location": "development"},
+    {"id": "picard_per_troi",          "name": "Deanna Troi",          "card_type": "PERSON",    "traits": ["STARFLEET", "BETAZOID", "TELEPATH", "HUMAN"],  "points": 0, "specialty": None, "starting_location": "development"},
+    {"id": "picard_cargo_phasing",     "name": "Phasing Cloak",        "card_type": "CARGO",     "traits": ["STARFLEET", "ONGOING", "WEAPON", "CLOAK"],     "points": 0, "specialty": None, "starting_location": "development"},
+    {"id": "picard_loc_starbase74",    "name": "Starbase 74",          "card_type": "LOCATION",  "traits": ["STARFLEET", "STARBASE"],                       "points": 0, "specialty": None, "starting_location": "development"},
+    {"id": "picard_dir_make_it_so",    "name": "Make It So",           "card_type": "DIRECTIVE", "traits": [],                                              "points": 0, "specialty": None, "starting_location": "development"},
+    {"id": "picard_loc_daystrom",      "name": "Daystrom Institute",   "card_type": "LOCATION",  "traits": ["STARFLEET", "ANDROID"],                        "points": 0, "specialty": None, "starting_location": "development"},
+    {"id": "picard_per_laforge",       "name": "Geordi LaForge",       "card_type": "PERSON",    "traits": ["STARFLEET", "HUMAN", "ENGINEER", "PILOT"],     "points": 0, "specialty": None, "starting_location": "development"},
+    {"id": "picard_ship_bozeman",      "name": "U.S.S. Bozeman",       "card_type": "SHIP",      "traits": ["TIME TRAVEL", "STARFLEET", "ANOMOLY"],         "points": 0, "specialty": None, "starting_location": "development"},
+    {"id": "picard_ally_tamarians",    "name": "Tamarians",            "card_type": "ALLY",      "traits": ["ALIEN"],                                       "points": 0, "specialty": None, "starting_location": "development"},
 ]
 
 BY_ID = {c["id"]: c for c in CARDS}

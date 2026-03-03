@@ -291,35 +291,35 @@ CARDS = [
     },
 
     # ── Available ×10 (shuffled → base of draw deck) ──────────────────────────
-    {"id": "shran_ally_01",      "name": "[Ally 1]",      "card_type": "ALLY",      "traits": [], "points": 0, "starting_location": "available"},
-    {"id": "shran_ally_02",      "name": "[Ally 2]",      "card_type": "ALLY",      "traits": [], "points": 0, "starting_location": "available"},
-    {"id": "shran_cargo_01",     "name": "[Cargo 1]",     "card_type": "CARGO",     "traits": [], "points": 0, "starting_location": "available"},
-    {"id": "shran_cargo_02",     "name": "[Cargo 2]",     "card_type": "CARGO",     "traits": [], "points": 0, "starting_location": "available"},
-    {"id": "shran_directive_01", "name": "[Directive 1]", "card_type": "DIRECTIVE", "traits": [], "points": 0, "starting_location": "available"},
-    {"id": "shran_directive_02", "name": "[Directive 2]", "card_type": "DIRECTIVE", "traits": [], "points": 0, "starting_location": "available"},
-    {"id": "shran_directive_03", "name": "[Directive 3]", "card_type": "DIRECTIVE", "traits": [], "points": 0, "starting_location": "available"},
-    {"id": "shran_person_01",    "name": "[Person 1]",    "card_type": "PERSON",    "traits": [], "points": 0, "starting_location": "available"},
-    {"id": "shran_person_02",    "name": "[Person 2]",    "card_type": "PERSON",    "traits": [], "points": 0, "starting_location": "available"},
-    {"id": "shran_location_01",  "name": "[Location 1]", "card_type": "LOCATION",  "traits": [], "points": 0, "starting_location": "available"},
+    {"id": "shran_ally_01",      "name": "[Ally 1]",      "card_type": "ALLY",      "traits": [], "points": 0, "specialty": None, "starting_location": "available"},
+    {"id": "shran_ally_02",      "name": "[Ally 2]",      "card_type": "ALLY",      "traits": [], "points": 0, "specialty": None, "starting_location": "available"},
+    {"id": "shran_cargo_01",     "name": "[Cargo 1]",     "card_type": "CARGO",     "traits": [], "points": 0, "specialty": None, "starting_location": "available"},
+    {"id": "shran_cargo_02",     "name": "[Cargo 2]",     "card_type": "CARGO",     "traits": [], "points": 0, "specialty": None, "starting_location": "available"},
+    {"id": "shran_directive_01", "name": "[Directive 1]", "card_type": "DIRECTIVE", "traits": [], "points": 0, "specialty": None, "starting_location": "available"},
+    {"id": "shran_directive_02", "name": "[Directive 2]", "card_type": "DIRECTIVE", "traits": [], "points": 0, "specialty": None, "starting_location": "available"},
+    {"id": "shran_directive_03", "name": "[Directive 3]", "card_type": "DIRECTIVE", "traits": [], "points": 0, "specialty": None, "starting_location": "available"},
+    {"id": "shran_person_01",    "name": "[Person 1]",    "card_type": "PERSON",    "traits": [], "points": 0, "specialty": None, "starting_location": "available"},
+    {"id": "shran_person_02",    "name": "[Person 2]",    "card_type": "PERSON",    "traits": [], "points": 0, "specialty": None, "starting_location": "available"},
+    {"id": "shran_location_01",  "name": "[Location 1]", "card_type": "LOCATION",  "traits": [], "points": 0, "specialty": None, "starting_location": "available"},
 
     # ── Deployed ×1 (placed on top of draw deck after shuffling) ──────────────
-    {"id": "shran_ship_01", "name": "[Ship 1 — Deployed]", "card_type": "SHIP", "traits": [], "points": 0, "starting_location": "deployed"},
+    {"id": "shran_ship_01", "name": "[Ship 1 — Deployed]", "card_type": "SHIP", "traits": [], "points": 0, "specialty": None, "starting_location": "deployed"},
 
     # ── Reserve ×5 (shuffled → top layer of reserve deck) ────────────────────
-    {"id": "shran_directive_04", "name": "[Directive 4]", "card_type": "DIRECTIVE", "traits": [], "points": 0, "starting_location": "reserve"},
-    {"id": "shran_cargo_03",     "name": "[Cargo 3]",     "card_type": "CARGO",     "traits": [], "points": 0, "starting_location": "reserve"},
-    {"id": "shran_ship_02",      "name": "[Ship 2]",      "card_type": "SHIP",      "traits": [], "points": 0, "starting_location": "reserve"},
-    {"id": "shran_person_03",    "name": "[Person 3]",    "card_type": "PERSON",    "traits": [], "points": 0, "starting_location": "reserve"},
-    {"id": "shran_location_02",  "name": "[Location 2]", "card_type": "LOCATION",  "traits": [], "points": 0, "starting_location": "reserve"},
+    {"id": "shran_directive_04", "name": "[Directive 4]", "card_type": "DIRECTIVE", "traits": [], "points": 0, "specialty": None, "starting_location": "reserve"},
+    {"id": "shran_cargo_03",     "name": "[Cargo 3]",     "card_type": "CARGO",     "traits": [], "points": 0, "specialty": None, "starting_location": "reserve"},
+    {"id": "shran_ship_02",      "name": "[Ship 2]",      "card_type": "SHIP",      "traits": [], "points": 0, "specialty": None, "starting_location": "reserve"},
+    {"id": "shran_person_03",    "name": "[Person 3]",    "card_type": "PERSON",    "traits": [], "points": 0, "specialty": None, "starting_location": "reserve"},
+    {"id": "shran_location_02",  "name": "[Location 2]", "card_type": "LOCATION",  "traits": [], "points": 0, "specialty": None, "starting_location": "reserve"},
 
     # ── Development ×7 (shuffled → bottom layer of reserve deck) ─────────────
-    {"id": "shran_directive_05", "name": "[Directive 5]", "card_type": "DIRECTIVE", "traits": [], "points": 0, "starting_location": "development"},
-    {"id": "shran_directive_06", "name": "[Directive 6]", "card_type": "DIRECTIVE", "traits": [], "points": 0, "starting_location": "development"},
-    {"id": "shran_cargo_04",     "name": "[Cargo 4]",     "card_type": "CARGO",     "traits": [], "points": 0, "starting_location": "development"},
-    {"id": "shran_ship_03",      "name": "[Ship 3]",      "card_type": "SHIP",      "traits": [], "points": 0, "starting_location": "development"},
-    {"id": "shran_ship_04",      "name": "[Ship 4]",      "card_type": "SHIP",      "traits": [], "points": 0, "starting_location": "development"},
-    {"id": "shran_other_01",     "name": "[Other 1]",     "card_type": "OTHER",     "traits": [], "points": 0, "starting_location": "development"},
-    {"id": "shran_other_02",     "name": "[Other 2]",     "card_type": "OTHER",     "traits": [], "points": 0, "starting_location": "development"},
+    {"id": "shran_directive_05", "name": "[Directive 5]", "card_type": "DIRECTIVE", "traits": [], "points": 0, "specialty": None, "starting_location": "development"},
+    {"id": "shran_directive_06", "name": "[Directive 6]", "card_type": "DIRECTIVE", "traits": [], "points": 0, "specialty": None, "starting_location": "development"},
+    {"id": "shran_cargo_04",     "name": "[Cargo 4]",     "card_type": "CARGO",     "traits": [], "points": 0, "specialty": None, "starting_location": "development"},
+    {"id": "shran_ship_03",      "name": "[Ship 3]",      "card_type": "SHIP",      "traits": [], "points": 0, "specialty": None, "starting_location": "development"},
+    {"id": "shran_ship_04",      "name": "[Ship 4]",      "card_type": "SHIP",      "traits": [], "points": 0, "specialty": None, "starting_location": "development"},
+    {"id": "shran_other_01",     "name": "[Other 1]",     "card_type": "OTHER",     "traits": [], "points": 0, "specialty": None, "starting_location": "development"},
+    {"id": "shran_other_02",     "name": "[Other 2]",     "card_type": "OTHER",     "traits": [], "points": 0, "specialty": None, "starting_location": "development"},
 ]
 
 # Index for fast lookup
