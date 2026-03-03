@@ -1,0 +1,30 @@
+<!-- Swapped in-place when resources change -->
+{% set res = state.resources %}
+{% set items = [
+  ("glory",     "Glory",     "★"),
+  ("latinum",   "Latinum",   "◈"),
+  ("dilithium", "Dilithium", "◆"),
+  ("research",  "Research",  "🔬"),
+  ("influence", "Influence", "✦"),
+  ("military",  "Military",  "⚔"),
+] %}
+
+{% for key, label, icon in items %}
+<div class="resource-row">
+  <span class="resource-icon">{{ icon }}</span>
+  <span class="resource-label">{{ label }}</span>
+  <div class="resource-controls">
+    <button class="btn btn-xs btn-ghost"
+      hx-post="/game/resource"
+      hx-vals='{"resource": "{{ key }}", "delta": -1}'
+      hx-target="#resources-panel"
+      hx-swap="innerHTML">−</button>
+    <span class="resource-value">{{ res[key] }}</span>
+    <button class="btn btn-xs btn-ghost"
+      hx-post="/game/resource"
+      hx-vals='{"resource": "{{ key }}", "delta": 1}'
+      hx-target="#resources-panel"
+      hx-swap="innerHTML">+</button>
+  </div>
+</div>
+{% endfor %}

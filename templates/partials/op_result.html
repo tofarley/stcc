@@ -1,0 +1,54 @@
+<!-- Generic operation result — returned by deck ops, duty officer ops, gain card -->
+
+<!-- Keep deck stats in sync -->
+{% if stats is defined %}
+<div hx-swap-oob="innerHTML:#deck-status">
+  <div class="panel-title">Decks</div>
+  <div class="deck-stats">
+    <div class="deck-stat"><span class="deck-stat-label">Draw</span><span class="deck-stat-count">{{ stats.draw }}</span></div>
+    <div class="deck-stat"><span class="deck-stat-label">Discard</span><span class="deck-stat-count">{{ stats.discard }}</span></div>
+    <div class="deck-stat"><span class="deck-stat-label">Reserve</span><span class="deck-stat-count">{{ stats.reserve }}</span></div>
+    <div class="deck-stat"><span class="deck-stat-label">Log</span><span class="deck-stat-count">{{ stats.log }}</span></div>
+  </div>
+</div>
+{% endif %}
+
+<!-- Keep duty officer panel in sync whenever DO state changes -->
+{% if has_do is defined %}
+<div hx-swap-oob="innerHTML:#do-panel">
+  <div class="panel-title">Duty Officer</div>
+  {% if has_do and do_card is defined and do_card %}
+    <div class="do-active">
+      <span class="type-badge type-{{ do_card.card_type | lower }}">{{ do_card.card_type }}</span>
+      <span class="do-name">{{ do_card.name }}</span>
+    </div>
+    <div class="do-actions">
+      <button class="btn btn-sm btn-danger"
+        hx-post="/game/duty-officer/log"
+        hx-target="#op-result"
+        hx-swap="innerHTML">Log DO</button>
+      <button class="btn btn-sm btn-ghost"
+        hx-post="/game/duty-officer/dismiss"
+        hx-target="#op-result"
+        hx-swap="innerHTML">Dismiss</button>
+    </div>
+  {% else %}
+    <div class="do-empty">No Duty Officer assigned</div>
+  {% endif %}
+</div>
+{% endif %}
+
+<div class="op-feedback">
+  <span class="op-check">✓</span>
+  <span class="op-message">{{ message }}</span>
+  {% if affected_cards %}
+    <span class="op-cards">
+      {% for c in affected_cards %}
+        {% if c %}
+          <span class="type-badge type-{{ c.card_type | lower }}">{{ c.card_type }}</span>
+          {{ c.name }}{% if not loop.last %}, {% endif %}
+        {% endif %}
+      {% endfor %}
+    </span>
+  {% endif %}
+</div>

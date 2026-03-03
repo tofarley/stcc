@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Choose Captain — STCC Solo Bot{% endblock %}
+
+{% block content %}
+<div class="center-wrap">
+  <h1 class="page-heading">Choose Your Opponent</h1>
+  <p class="subtitle">Select the Bot Captain for this game.</p>
+
+  <form method="POST" action="/start" class="captain-form">
+    <div class="captain-grid">
+
+      <label class="captain-card">
+        <input type="radio" name="captain" value="picard" checked>
+        <div class="captain-inner">
+          <div class="captain-name">Picard</div>
+          <div class="captain-difficulty">Difficulty 1 / 10</div>
+          <div class="captain-set">CORE</div>
+        </div>
+      </label>
+
+      <label class="captain-card">
+        <input type="radio" name="captain" value="shran">
+        <div class="captain-inner">
+          <div class="captain-name">Shran</div>
+          <div class="captain-difficulty">Difficulty 2 / 10</div>
+          <div class="captain-set">CORE</div>
+        </div>
+      </label>
+
+      <label class="captain-card">
+        <input type="radio" name="captain" value="koloth">
+        <div class="captain-inner">
+          <div class="captain-name">Koloth</div>
+          <div class="captain-difficulty">Difficulty 3 / 10</div>
+          <div class="captain-set">CORE</div>
+        </div>
+      </label>
+
+      <label class="captain-card">
+        <input type="radio" name="captain" value="sisko">
+        <div class="captain-inner">
+          <div class="captain-name">Sisko</div>
+          <div class="captain-difficulty">Difficulty 4 / 10</div>
+          <div class="captain-set">CORE</div>
+        </div>
+      </label>
+
+      <label class="captain-card">
+        <input type="radio" name="captain" value="sela">
+        <div class="captain-inner">
+          <div class="captain-name">Sela</div>
+          <div class="captain-difficulty">Difficulty 5 / 10</div>
+          <div class="captain-set">CORE</div>
+        </div>
+      </label>
+
+      <label class="captain-card">
+        <input type="radio" name="captain" value="burnham">
+        <div class="captain-inner">
+          <div class="captain-name">Burnham</div>
+          <div class="captain-difficulty">Difficulty 7 / 10</div>
+          <div class="captain-set">CORE</div>
+        </div>
+      </label>
+
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-lg">Engage</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+<!-- Card gain selector — loaded into #gain-card-panel by type buttons -->
+{% if not cards %}
+  <p class="muted">No cards of type <strong>{{ card_type }}</strong> found.</p>
+{% else %}
+<div class="gain-list">
+  <div class="gain-list-heading">Select a {{ card_type }} card to add to Bot discard:</div>
+  {% for c in cards %}
+  <button class="btn btn-sm btn-card-select"
+    hx-post="/game/gain-card"
+    hx-vals='{"card_id": "{{ c.id }}"}'
+    hx-target="#op-result"
+    hx-swap="innerHTML">{{ c.name }}</button>
+  {% endfor %}
+</div>
+{% endif %}

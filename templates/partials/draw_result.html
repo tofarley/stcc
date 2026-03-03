@@ -1,0 +1,120 @@
+<!-- Returned by POST /game/draw, swapped into #draw-result -->
+
+<!-- Update deck stats in sidebar -->
+<div hx-swap-oob="innerHTML:#deck-status">
+  <div class="panel-title">Decks</div>
+  <div class="deck-stats">
+    <div class="deck-stat"><span class="deck-stat-label">Draw</span><span class="deck-stat-count">{{ stats.draw }}</span></div>
+    <div class="deck-stat"><span class="deck-stat-label">Discard</span><span class="deck-stat-count">{{ stats.discard }}</span></div>
+    <div class="deck-stat"><span class="deck-stat-label">Reserve</span><span class="deck-stat-count">{{ stats.reserve }}</span></div>
+    <div class="deck-stat"><span class="deck-stat-label">Log</span><span class="deck-stat-count">{{ stats.log }}</span></div>
+  </div>
+</div>
+
+{% if not drawn %}
+  <div class="empty-state">No cards could be drawn — all decks empty.</div>
+{% else %}
+  {% for d in drawn %}
+  <div class="card-result{% if not loop.first %} card-obscured{% endif %}">
+
+    <!-- Reveal overlay — shown on all cards except the first -->
+    {% if not loop.first %}
+    <div class="card-reveal-overlay" onclick="this.parentElement.classList.remove('card-obscured'); this.remove();">
+      <span class="card-reveal-icon">▶</span>
+      <span class="card-reveal-label">Card {{ loop.index }} of {{ drawn | length }} — click to flip</span>
+    </div>
+    {% endif %}
+
+    <!-- Card header -->
+    <div class="card-header">
+      <span class="type-badge type-{{ d.card.card_type | lower }}">{{ d.card.card_type }}</span>
+      <span class="card-name">{{ d.card.name }}</span>
+      {% if d.has_do %}
+        <span class="do-indicator">Duty Officer Active</span>
+      {% endif %}
+    </div>
+
+    <!-- Traits (resolved first) -->
+    {% if d.active_traits %}
+    <div class="traits-section">
+      <div class="section-label">① Resolve Traits First</div>
+      {% for trait in d.active_traits %}
+      <div class="trait-block">
+        <span class="trait-label">{{ trait.label }}</span>
+        <p class="trait-action">{{ trait.action }}</p>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Primary action -->
+    {% if d.action_entry %}
+    <div class="action-section">
+      <div class="section-label">
+        {% if d.active_traits %}② {% endif %}
+        {{ d.card.card_type }} Action
+        <span class="do-mode-label">({% if d.has_do %}with{% else %}no{% endif %} Duty Officer)</span>
+      </div>
+      <p class="action-text">{{ d.action_entry.action }}</p>
+
+      <!-- Deck operation buttons -->
+      {% if d.action_entry.deck_ops %}
+      <div class="op-buttons">
+        {% for op in d.action_entry.deck_ops %}
+          {% if op.type == "discard_top" %}
+          <button class="btn btn-sm btn-op"
+            hx-post="/game/deck/discard-top/{{ op.count }}"
+            hx-target="#op-result"
+            hx-swap="innerHTML">{{ op.label }}</button>
+
+          {% elif op.type == "log_top" %}
+          <button class="btn btn-sm btn-op"
+            hx-post="/game/deck/log-top"
+            hx-target="#op-result"
+            hx-swap="innerHTML">{{ op.label }}</button>
+
+          {% elif op.type == "log_current" %}
+          <button class="btn btn-sm btn-op"
+            hx-post="/game/deck/log/{{ d.card.id }}"
+            hx-target="#op-result"
+            hx-swap="innerHTML">{{ op.label }}</button>
+
+          {% elif op.type == "return_current" %}
+          <button class="btn btn-sm btn-op"
+            hx-post="/game/deck/return/{{ d.card.id }}"
+            hx-target="#op-result"
+            hx-swap="innerHTML">{{ op.label }}</button>
+
+          {% elif op.type == "promote_duty_officer" %}
+          <button class="btn btn-sm btn-promote"
+            hx-post="/game/duty-officer/promote/{{ d.card.id }}"
+            hx-target="#op-result"
+            hx-swap="innerHTML">{{ op.label }}</button>
+
+          {% elif op.type == "log_duty_officer" %}
+          <button class="btn btn-sm btn-danger"
+            hx-post="/game/duty-officer/log"
+            hx-target="#op-result"
+            hx-swap="innerHTML">{{ op.label }}</button>
+
+          {% elif op.type == "dismiss_duty_officer" %}
+          <button class="btn btn-sm btn-ghost"
+            hx-post="/game/duty-officer/dismiss"
+            hx-target="#op-result"
+            hx-swap="innerHTML">{{ op.label }}</button>
+          {% endif %}
+        {% endfor %}
+      </div>
+      {% endif %}
+
+    </div>
+    {% else %}
+    <div class="action-section">
+      <div class="section-label">{{ d.card.card_type }} Action</div>
+      <p class="action-text muted">No action defined for this card type yet.</p>
+    </div>
+    {% endif %}
+
+  </div>
+  {% endfor %}
+{% endif %}
