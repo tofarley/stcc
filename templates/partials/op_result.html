@@ -26,11 +26,11 @@
       <button class="btn btn-sm btn-danger"
         hx-post="/game/duty-officer/log"
         hx-target="#op-result"
-        hx-swap="innerHTML">Log DO</button>
+        hx-swap="beforeend">Log DO</button>
       <button class="btn btn-sm btn-ghost"
         hx-post="/game/duty-officer/dismiss"
         hx-target="#op-result"
-        hx-swap="innerHTML">Dismiss</button>
+        hx-swap="beforeend">Dismiss</button>
     </div>
   {% else %}
     <div class="do-empty">No Duty Officer assigned</div>

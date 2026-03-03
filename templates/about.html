@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}About — STCC Solo Bot{% endblock %}
+
+{% block content %}
+<div class="center-wrap about-page">
+  <h1 class="page-heading">About This Site</h1>
+
+  <section class="about-section">
+    <h2 class="about-heading">What Is This?</h2>
+    <p>This is an unofficial solo bot companion for <strong>Star Trek: Captain's Chair</strong>, a deckbuilding card game. Instead of needing a second player, you play your normal game while this site runs an automated opponent bot for you — flipping cards, issuing actions, and managing its own deck according to each Bot Captain's unique behavior.</p>
+  </section>
+
+  <section class="about-section">
+    <h2 class="about-heading">How to Play</h2>
+    <ol class="about-list">
+      <li>Choose a <strong>Bot Captain</strong> from the home screen. Higher difficulty captains have more aggressive or complex behaviors.</li>
+      <li>On the bot's turn, enter how many cards to flip based on the current stardate card and click <strong>Flip Cards</strong>.</li>
+      <li>Each card shows the bot's action for that card type. Follow the on-screen instructions — discard cards, log them out of the game, deploy ships, promote Duty Officers, and so on — using the provided buttons.</li>
+      <li>Move any physical components as needed to reflect the game state (primarily ships and away teams at neutral locations).</li>
+      <li>When you're done resolving the turn, click <strong>End Turn</strong> to discard the drawn cards and prepare for the next turn.</li>
+      <li>Use the sidebar to track the bot's resources, Duty Officer, deployed cards, and deck counts. You can also browse the bot's discard and log piles at any time.</li>
+    </ol>
+  </section>
+
+  <section class="about-section">
+    <h2 class="about-heading">Tech Stack</h2>
+    <p>The site is built with <strong>Python</strong> and <strong>Flask</strong> on the backend, with <strong>HTMX</strong> handling dynamic page updates without writing JavaScript. Game state is stored entirely in your browser session — there is no database.</p>
+  </section>
+
+  <section class="about-section">
+    <h2 class="about-heading">Privacy</h2>
+    <p>Your game state is stored in a <strong>session cookie in your own browser</strong>. Nothing is saved on any server. We do not collect, store, or transmit any personal data about you — ever. Closing your browser or clearing cookies ends your session.</p>
+  </section>
+
+  <section class="about-section">
+    <div class="playtest-warning">
+      <strong>Playtest Version</strong> — This site is under active development. You may encounter bugs, including ones that prevent you from completing a game. Thanks for helping test!
+    </div>
+  </section>
+
+  <a href="{{ url_for('index') }}" class="btn btn-primary">← Back to Captain Select</a>
+</div>
+{% endblock %}

@@ -13,7 +13,7 @@
     hx-post="/game/{% if is_take %}take{% else %}gain{% endif %}-card"
     hx-vals='{"card_id": "{{ c.id }}"}'
     hx-target="#op-result"
-    hx-swap="innerHTML">{{ c.name }}</button>
+    hx-swap="beforeend">{{ c.name }}</button>
   {% endfor %}
 </div>
 {% endif %}

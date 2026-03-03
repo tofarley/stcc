@@ -10,11 +10,14 @@
 <body>
   <header class="site-header">
     <span class="site-title">STAR TREK CAPTAIN'S CHAIR — Solo Bot</span>
-    {% if 'game' in session %}
-    <form method="POST" action="/game/reset" style="display:inline">
-      <button class="btn btn-ghost btn-sm">↩ New Game</button>
-    </form>
-    {% endif %}
+    <nav class="site-nav">
+      <a href="{{ url_for('about') }}" class="btn btn-ghost btn-sm">About</a>
+      {% if 'game' in session %}
+      <form method="POST" action="/game/reset" style="display:inline">
+        <button class="btn btn-ghost btn-sm">↩ New Game</button>
+      </form>
+      {% endif %}
+    </nav>
   </header>
 
   <main>
