@@ -267,7 +267,7 @@ WITH_DUTY_OFFICER = {
 
 # Distribution: ALLY×1, CARGO×1, DIRECTIVE×8, INCIDENT×1, LOCATION×3, PERSON×6, SHIP×3
 CARDS = [
-    {"id": "picard_captain",           "name": "Picard",               "card_type": "CAPTAIN",   "traits": [],                                              "points": 0, "specialty": None, "starting_location": "captain"},
+    {"id": "picard_captain",           "name": "Picard",               "card_type": "CAPTAIN",   "traits": ["STARFLEET", "HUMAN"],                         "points": 5, "specialty": None, "starting_location": "captain"},
 
     # Available ×10
     {"id": "picard_loc_farpoint",      "name": "Farpoint Station",     "card_type": "LOCATION",  "traits": ["BUSINESS", "ANOMOLY"],                         "points": 0, "specialty": None, "starting_location": "available"},
@@ -295,7 +295,7 @@ CARDS = [
     {"id": "picard_cargo_phasing",     "name": "Phasing Cloak",        "card_type": "CARGO",     "traits": ["STARFLEET", "ONGOING", "WEAPON", "CLOAK"],     "points": 0, "specialty": None, "starting_location": "development"},
     {"id": "picard_loc_starbase74",    "name": "Starbase 74",          "card_type": "LOCATION",  "traits": ["STARFLEET", "STARBASE"],                       "points": 0, "specialty": None, "starting_location": "development"},
     {"id": "picard_dir_make_it_so",    "name": "Make It So",           "card_type": "DIRECTIVE", "traits": [],                                              "points": 0, "specialty": None, "starting_location": "development"},
-    {"id": "picard_loc_daystrom",      "name": "Daystrom Institute",   "card_type": "LOCATION",  "traits": ["STARFLEET", "ANDROID"],                        "points": 0, "specialty": None, "starting_location": "development"},
+    {"id": "picard_loc_daystrom",      "name": "Daystrom Institute",   "card_type": "LOCATION",  "traits": ["STARFLEET", "ANDROID"],                        "points": 6, "specialty": None, "starting_location": "development"},
     {"id": "picard_per_laforge",       "name": "Geordi LaForge",       "card_type": "PERSON",    "traits": ["STARFLEET", "HUMAN", "ENGINEER", "PILOT"],     "points": 0, "specialty": None, "starting_location": "development"},
     {"id": "picard_ship_bozeman",      "name": "U.S.S. Bozeman",       "card_type": "SHIP",      "traits": ["TIME TRAVEL", "STARFLEET", "ANOMOLY"],         "points": 0, "specialty": None, "starting_location": "development"},
     {"id": "picard_ally_tamarians",    "name": "Tamarians",            "card_type": "ALLY",      "traits": ["ALIEN"],                                       "points": 0, "specialty": None, "starting_location": "development"},
