@@ -61,6 +61,7 @@ def game():
         turn_cards=[],
         specialty_info=engine.get_specialty_info(state),
         deployed_display=engine.get_deployed_display(state),
+        score=engine.calculate_score(state),
     )
 
 
@@ -320,6 +321,7 @@ def end_turn():
         affected_cards=cards,
         stats=engine.deck_stats(state),
         clear_draw_result=True,
+        score=engine.calculate_score(state),
     )
 
 

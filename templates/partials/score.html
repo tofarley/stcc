@@ -1,0 +1,62 @@
+<!-- Score breakdown panel — swapped into #score-panel -->
+<div class="score-total">{{ score.total }}</div>
+
+<div class="score-rows">
+
+  <!-- Specialty -->
+  {% for track, info in score.specialty.items() %}
+  <div class="score-row score-specialty score-{{ track }}">
+    <span class="score-label">{{ track | capitalize }} ({{ info.count }}×{{ info.multiplier }})</span>
+    <span class="score-pts">{{ info.score }}</span>
+  </div>
+  {% endfor %}
+
+  <!-- Card points -->
+  {% if score.flat != 0 %}
+  <div class="score-row">
+    <span class="score-label">Other Cards</span>
+    <span class="score-pts">{{ score.flat }}</span>
+  </div>
+  {% endif %}
+
+  <!-- Resources -->
+  {% if score.resource_score %}
+  <div class="score-divider"></div>
+  {% if score.glory %}
+  <div class="score-row">
+    <span class="score-label">Glory ({{ score.glory }})</span>
+    <span class="score-pts">{{ score.glory }}</span>
+  </div>
+  {% endif %}
+  {% if score.dilithium_pts %}
+  <div class="score-row">
+    <span class="score-label">Dilithium {% if score.dilithium_rate_half %}(÷2){% endif %}</span>
+    <span class="score-pts">{{ score.dilithium_pts }}</span>
+  </div>
+  {% endif %}
+  {% if score.latinum_pts %}
+  <div class="score-row">
+    <span class="score-label">Latinum (÷2)</span>
+    <span class="score-pts">{{ score.latinum_pts }}</span>
+  </div>
+  {% endif %}
+  {% endif %}
+
+  <!-- Neutral locations -->
+  {% if score.neutral_score %}
+  <div class="score-divider"></div>
+  {% if score.neutral_ships %}
+  <div class="score-row">
+    <span class="score-label">Ships at Neutral ({{ score.neutral_ships }})</span>
+    <span class="score-pts">{{ score.neutral_ships }}</span>
+  </div>
+  {% endif %}
+  {% if score.away_teams %}
+  <div class="score-row">
+    <span class="score-label">Away Teams ({{ score.away_teams }})</span>
+    <span class="score-pts">{{ score.away_teams }}</span>
+  </div>
+  {% endif %}
+  {% endif %}
+
+</div>

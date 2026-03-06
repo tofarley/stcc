@@ -480,27 +480,37 @@ def _get_multiplier(steps: list, track_value: int) -> int:
 
 def calculate_score(state: dict) -> dict:
     """
-    Calculate the end-game score from logged cards.
+    Calculate the current score.
 
-    Returns:
-      {
-        "flat": <int>,                          # sum of points on non-specialty logged cards
-        "specialty": {
-          "research":  {"count": N, "multiplier": M, "score": N*M},
-          "influence": {"count": N, "multiplier": M, "score": N*M},
-          "military":  {"count": N, "multiplier": M, "score": N*M},
-        },
-        "total": <int>,
-      }
+    Controlled cards (draw deck + discard pile + log pile, NOT reserve):
+      - Specialty cards: counted per track, scored as count × multiplier
+      - All others: sum of card point values
+
+    Resources:
+      - 1 pt per Glory
+      - 1 pt per 2 Dilithium (floor)
+      - 1 pt per 2 Latinum (floor)
+
+    Neutral locations:
+      - 1 pt per ship warped to a neutral planet
+      - 1 pt per away team (resources.away_teams)
     """
     module = get_captain_module(state["captain_id"])
     thresholds = module.SPECIALTY_THRESHOLDS
     resources = state.get("resources", {})
 
+    captain = [state["captain_card"]] if state.get("captain_card") else []
+    controlled = (
+        captain +
+        state.get("draw_deck", []) +
+        state.get("discard_pile", []) +
+        state.get("log_pile", [])
+    )
+
     flat = 0
     counts = {track: 0 for track in thresholds}
 
-    for card_id in state.get("log_pile", []):
+    for card_id in controlled:
         card = get_card(card_id)
         if card is None:
             continue
@@ -519,5 +529,32 @@ def calculate_score(state: dict) -> dict:
             "score":      count * multiplier,
         }
 
-    total = flat + sum(s["score"] for s in specialty.values())
-    return {"flat": flat, "specialty": specialty, "total": total}
+    glory      = resources.get("glory", 0)
+    dilithium  = resources.get("dilithium", 0)
+    latinum    = resources.get("latinum", 0)
+    dilithium_pts = dilithium if state["captain_id"] == "burnham" else dilithium // 2
+    resource_score = glory + dilithium_pts + latinum // 2
+
+    neutral_ships = sum(
+        1 for loc in state.get("warped_ships", {}).values() if loc == "neutral"
+    )
+    away_teams    = resources.get("away_teams", 0)
+    neutral_score = neutral_ships + away_teams
+
+    specialty_score = sum(s["score"] for s in specialty.values())
+    total = flat + specialty_score + resource_score + neutral_score
+
+    return {
+        "flat":           flat,
+        "specialty":      specialty,
+        "specialty_score": specialty_score,
+        "glory":          glory,
+        "dilithium_pts":       dilithium_pts,
+        "dilithium_rate_half": state["captain_id"] != "burnham",
+        "latinum_pts":    latinum // 2,
+        "resource_score": resource_score,
+        "neutral_ships":  neutral_ships,
+        "away_teams":     away_teams,
+        "neutral_score":  neutral_score,
+        "total":          total,
+    }

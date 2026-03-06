@@ -48,6 +48,12 @@
 <div hx-swap-oob="innerHTML:#draw-result"></div>
 {% endif %}
 
+{% if score is defined %}
+<div hx-swap-oob="innerHTML:#score-panel">
+  {% include "partials/score.html" %}
+</div>
+{% endif %}
+
 <div class="op-feedback">
   <span class="op-check">✓</span>
   <span class="op-message">{{ message }}</span>

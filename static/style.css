@@ -405,6 +405,24 @@ button:hover, .btn:hover { background: var(--border); }
 .quick-gain-btn       { color: var(--accent2); border-color: var(--border); }
 .inline-gain-list     { display: flex; flex-direction: column; gap: 4px; max-height: 200px; overflow-y: auto; }
 
+/* ── Score panel ─────────────────────────────────────────────────────────── */
+.score-total {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--accent2);
+  text-align: center;
+  line-height: 1;
+  padding: 6px 0 10px;
+}
+.score-rows       { display: flex; flex-direction: column; gap: 3px; }
+.score-row        { display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
+.score-label      { color: var(--text-muted); }
+.score-pts        { color: var(--text); font-weight: 600; min-width: 24px; text-align: right; }
+.score-divider    { border-top: 1px solid var(--border); margin: 4px 0 2px; }
+.score-specialty.score-research .score-label  { color: #5ba3f5; }
+.score-specialty.score-influence .score-label { color: #ffd166; }
+.score-specialty.score-military .score-label  { color: #ef4444; }
+
 /* ── End turn bar ────────────────────────────────────────────────────────── */
 .end-turn-bar {
   display: flex;
