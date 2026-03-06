@@ -222,7 +222,15 @@ def gain_card_panel():
     """Returns the card-gain selector panel (HTMX GET)."""
     card_type = request.args.get("type", "")
     action    = request.args.get("action", "gain")  # "gain" → discard, "take" → top of deck
-    cards = common.BY_TYPE.get(card_type, []) if card_type else []
+    cards = list(common.BY_TYPE.get(card_type, [])) if card_type else []
+    if card_type == "INCIDENT" and "game" in session:
+        state = _game()
+        captain_incidents = [
+            engine.get_card(cid)
+            for cid in state.get("captain_incident_cards", [])
+            if engine.get_card(cid) is not None
+        ]
+        cards = captain_incidents + cards
     all_types = list(common.BY_TYPE.keys())
     return render_template(
         "partials/gain_card.html",

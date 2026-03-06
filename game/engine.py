@@ -63,17 +63,19 @@ def initialize_game(captain_id: str) -> dict:
     module = get_captain_module(captain_id)
     cards = module.CARDS
 
-    available     = [c["id"] for c in cards if c["starting_location"] == "available"]
-    deployed      = [c["id"] for c in cards if c["starting_location"] == "deployed"]
-    controlled    = [c["id"] for c in cards if c["starting_location"] == "controlled_location"]
-    development   = [c["id"] for c in cards if c["starting_location"] == "development"]
-    reserve       = [c["id"] for c in cards if c["starting_location"] == "reserve"]
-    discard_start = [c["id"] for c in cards if c["starting_location"] == "discard"]
-    captain_card  = next((c["id"] for c in cards if c["starting_location"] == "captain"), None)
+    # INCIDENT cards always move to the shared incident pool — never enter any bot deck
+    captain_incidents = [c["id"] for c in cards if c["card_type"] == "INCIDENT"]
+    deck_cards = [c for c in cards if c["card_type"] != "INCIDENT"]
+
+    available     = [c["id"] for c in deck_cards if c["starting_location"] == "available"]
+    deployed      = [c["id"] for c in deck_cards if c["starting_location"] == "deployed"]
+    controlled    = [c["id"] for c in deck_cards if c["starting_location"] == "controlled_location"]
+    development   = [c["id"] for c in deck_cards if c["starting_location"] == "development"]
+    reserve       = [c["id"] for c in deck_cards if c["starting_location"] == "reserve"]
+    discard_start = [c["id"] for c in deck_cards if c["starting_location"] == "discard"]
+    captain_card  = next((c["id"] for c in deck_cards if c["starting_location"] == "captain"), None)
     # status cards (Burnham) are set aside face-up, not in any deck
-    status_cards  = [c["id"] for c in cards if c["starting_location"] == "status"]
-    # incident_deck cards go to the shared incident pile, not the bot's decks
-    # (tracked for display but not put in draw/reserve)
+    status_cards  = [c["id"] for c in deck_cards if c["starting_location"] == "status"]
 
     # Draw deck: shuffle available, then place (deployed + controlled) on top
     random.shuffle(available)
@@ -96,13 +98,15 @@ def initialize_game(captain_id: str) -> dict:
         "reserve_deck":     reserve_deck,
         "log_pile":         [],
         "captain_card":     captain_card,
-        "status_cards":     status_cards,
-        "has_duty_officer": False,
+        "status_cards":           status_cards,
+        "captain_incident_cards": captain_incidents,
+        "has_duty_officer":       False,
         "duty_officer_card": None,
         "resources": {
-            "latinum":   0,
-            "glory":     0,
-            "dilithium": 0,
+            "latinum":    0,
+            "glory":      0,
+            "dilithium":  0,
+            "away_teams": 0,
             "research":  0,
             "influence": 0,
             "military":  0,
